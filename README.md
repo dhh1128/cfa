@@ -48,7 +48,9 @@ Sidecar naming is easy and intuitive; in fact, it is already used as described h
 
 ### Shared Stem
 
-A variation on sidecars is to associate files by giving their name a common __stem__, varying only in the extension portion. Digital cameras and related software often uses this strategy -- saving .raw and .jpg, or .heic and .jpg versions of each photo.
+A variation on sidecars is to associate files by giving their name a common __stem__, varying only in the extension portion. The stem of a filename is the portion before the first `.` character. Digital cameras and related software often uses this strategy -- saving `.raw` and `.jpg`, or `.heic` and `.jpg` versions of each photo.
+
+![shared stem CFA](shared-stem-cfa.png)
 
 Although shared stems resemble sidecars in some ways, their semantics are different. Shared stems are directionless; within the files that share a stem, there is no notion of dependency. This makes them an awkward fit for the spreadsheet-digital-signature-in-email we used above. Naming the spreadsheet `balance-sheet.xlsx` and the signature `balance-sheet.sig` does connect them, but it loses the notion that the signature is meaningless without the spreadsheet.
 
