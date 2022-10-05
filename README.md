@@ -48,23 +48,25 @@ Sidecar naming is easy and intuitive; in fact, it is already used as described h
 
 ### Shared Stem
 
-A variation on sidecars is to associate files by giving their name a common __stem__, varying only in the extension portion. The stem of a filename is the portion before the first `.` character. Digital cameras and related software often uses this strategy -- saving `.raw` and `.jpg`, or `.heic` and `.jpg` versions of each photo.
+A variation on sidecars is to associate files by giving their name a common __stem__, varying only in the extension portion. The stem of a filename is the portion before the first `.` character. Digital cameras and related software often uses this strategy &mdash; saving `.raw` + `.tiff`, or `.heic` + `.jpg` versions of each photo as associated pairs.
 
 ![shared stem CFA](shared-stem-cfa.png)
 
 Although shared stems resemble sidecars in some ways, their semantics are different. Shared stems are directionless; within the files that share a stem, there is no notion of dependency. This makes them an awkward fit for the spreadsheet-digital-signature-in-email we used above. Naming the spreadsheet `balance-sheet.xlsx` and the signature `balance-sheet.sig` does connect them, but it loses the notion that the signature is meaningless without the spreadsheet.
 
+Like sidecars, shared stems are easy and intuitive, but their expressiveness is constrained.
+
 ### Infix
 
 Another simple CFA convention is the __infix__ pattern. In this pattern, files that bind the same CFA share a common 1- or 2-digit infix in their names. The infix cannot begin a name. It must be preceded by two hyphens and followed by a non-word character.
 
-For example, in our spreadsheet-digital-signature-in-email example, we could bind the spreadsheet to its signature by naming the two files `balance-sheet--01.xlsx` and `sig--01.txt`, respectively. The common `--01` infix is what binds them together.
+Suppose a police photographer wants to document an accident involving several vehicles, and each will be photographed from multiple angles and lighting conditions. She might bind photos for vehicle 1 using a common infix: `front-bumper--01.jpg` and `drivers-door--01.jpg`, respectively.
 
 ![infix CFA](infix-cfa.png)
 
 Infixes are compared numerically, not textually; this means an infix of `01` and an infix of `1` are equivalent. Normally, infixes are directionless; however, there are advanced options that can change this.
 
-A file may bind more than one infix in its name: `cozumel-kitesurf--01--04.jpg` is a member of groups using both the `01` and `04` infixes.
+A file may bind more than one infix in its name: `tangled-bumpers--01--04.jpg` is a member of groups using both the `01` and `04` infixes, and might show parts of vehicles 1 and 4 in our example.
 
 ### Metadata
 
