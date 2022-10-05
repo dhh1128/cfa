@@ -60,13 +60,15 @@ Like sidecars, shared stems are easy and intuitive, but their expressiveness is 
 
 Another simple CFA convention is the __infix__ pattern. In this pattern, files that bind the same CFA share a common 1- or 2-digit infix in their names. The infix cannot begin a name. It must be preceded by two hyphens and followed by a non-word character.
 
-Suppose a police photographer wants to document an accident involving several vehicles, and each will be photographed from multiple angles and lighting conditions. She might bind photos for vehicle 1 using a common infix: `front-bumper--01.jpg` and `drivers-door--01.jpg`, respectively.
+Suppose a police photographer is documenting an accident that involved several vehicles, and each will be photographed from multiple angles and lighting conditions. She might associate photos for vehicle 1 using a common infix: `front-bumper--01.jpg` and `drivers-door--01.jpg`, respectively.
 
 ![infix CFA](infix-cfa.png)
 
-Infixes are compared numerically, not textually; this means an infix of `01` and an infix of `1` are equivalent. Normally, infixes are directionless; however, there are advanced options that can change this.
+Infixes are compared numerically, not textually; this means an infix of `01` and an infix of `1` are equivalent.
 
-A file may bind more than one infix in its name: `tangled-bumpers--01--04.jpg` is a member of groups using both the `01` and `04` infixes, and might show parts of vehicles 1 and 4 in our example.
+A file may bind more than one infix in its name: `tangled-bumpers--01--03.jpg` is a member of groups using both the `01` and `03` infixes, and might show both vehicles 1 and 3 in our example.
+
+Normally, infixes are directionless; however, advanced options can change this.
 
 ### Metadata
 
