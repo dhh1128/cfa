@@ -52,36 +52,60 @@ A variation on sidecars is to associate files by giving their name a common __st
 
 ![shared stem CFA](shared-stem-cfa.png)
 
-Although shared stems resemble sidecars in some ways, their semantics are different. Shared stems are directionless; within the files that share a stem, there is no notion of dependency. This makes them an awkward fit for the spreadsheet-digital-signature-in-email we used above. Naming the spreadsheet `balance-sheet.xlsx` and the signature `balance-sheet.sig` does connect them, but it loses the notion that the signature is meaningless without the spreadsheet.
+Although shared stems resemble sidecars in some ways, their semantics are different. Shared stems are directionless; within the files that share a stem, there is no notion of dependency. This makes them an awkward fit for the spreadsheet-digital-signature-in-email example we used above. Naming the spreadsheet `balance-sheet.xlsx` and the signature `balance-sheet.sig` *does* connect them, but it does not convey the idea that the signature is meaningless without the spreadsheet.
 
-Like sidecars, shared stems are easy and intuitive, but their expressiveness is constrained.
+Like sidecars, shared stems are easy and intuitive, but their expressiveness is limited.
 
 ### Infix
 
-Another simple CFA convention is the __infix__ pattern. In this pattern, files that bind the same CFA share a common 1- or 2-digit infix in their names. The infix cannot begin a name. It must be preceded by two hyphens and followed by a non-word character.
+Another simple CFA convention is the __infix__ pattern. In this pattern, files that bind the same CFA share a common 1-to-3-digit infix in their names. The infix cannot begin a name. It must be preceded by two hyphens and followed by a non-word character.
 
-Suppose a police photographer is documenting an accident that involved several vehicles, and each will be photographed from multiple angles and lighting conditions. She might associate photos for vehicle 1 using a common infix: `front-bumper--01.jpg` and `drivers-door--01.jpg`, respectively.
+Suppose a police photographer is documenting an accident that involved several vehicles, and each will be photographed from multiple angles and lighting conditions. They might associate photos for vehicle 1 using a common infix: `front-bumper--01.jpg` and `drivers-door--01.jpg`, respectively.
 
 ![infix CFA](infix-cfa.png)
 
 Infixes are compared numerically, not textually; this means an infix of `01` and an infix of `1` are equivalent.
 
-A file may bind more than one infix in its name: `tangled-bumpers--01--03.jpg` is a member of groups using both the `01` and `03` infixes, and might show both vehicles 1 and 3 in our example.
+A file may bind more than one infix in its name: `tangled-bumpers--1--3.jpg` is a member of groups using both the `1` and `3` infixes, and might show both vehicles 1 and 3 in our example.
 
 Normally, infixes are directionless; however, advanced options can change this.
 
 ### Metadata
 
-Files with formats that can hold metadata may declare CFAs using whatever metadata features their format allows. This is an internal strategy.
+Files that have formats capable of formally declaring metadata may embed CFAs using whatever syntax their format allows. Because the CFA information is inside the file, this is an internal strategy.
 
-Metadata-based CFA declarations are essentially `name=value` pairs. The `name` part tells which kind of CFA is intended, and the `value` part provides an identifier that makes the CFA declaration unique.
+The location and syntax for declaring metadata varies by file format, so this strategy has various permutations. However, the principles are always the same. We'll describe the principles, and then explain how those principles manifest in various formats.
 
-All files that share a CFA annotation with the same identifier are part of the same set (that is, they *bind* the same CFA). For example, a photographer could embed metadata in a dozen photos, marking all of them as part of a CFA identified by the string `0bbfac55-81c9-48ab-8934-9a46c64c0703`. This would logically group the photos together, even if they are in different containers.
+Metadata-based CFA declarations are essentially `name=value` pairs. The `name` part tells what CFA semantics are intended, and the `value` part provides an arbitrary identifier that makes the CFA declaration unique. In other words, each `name=value` metadata annotation coveys the idea, "This file binds a CFA of type `name`, and the identifier for this particular CFA is `value`." Files that share a CFA annotation with the same identifier in the `value` portion of one of these annotations bind the same CFA and are thus part of the same set.
 
-The `name` component of a CFA metadata annotation tells what type of CFA semantics are intended. Three types of `name` are possible:
+Importantly, files bound to a CFA in this way can be part of the same set whether or not they are in the same container, and whether or not they are owned or controlled by the same party. This can solve certain problems that require decentralization. 
 
-* __identifier__: A file that carries this type of CFA annotation declares itself to be the one and only core file in the CFA.
+Suppose a composer of classical music wants to mark all her compositions as belonging to the overall corpus of compositions that she creates during her career. She can embed metadata in each new digital file that she authors, marking it internally as part of a CFA identified by the UUID `0bbfac55-81c9-48ab-8934-9a46c64c0703`. That UUID then binds all her creative output together, even if it's built with a variety of tools, for many clients, across decades, and stored in a hodge-podge of storage containers.
 
-* __partOf__: A file that carries this type of CFA annotation declares itself to be the one and only core file in the CFA.
+When creating CFA metadata annotations, three variants of the `name` half of the pair are defined. The names of these variants come from the [Dublin Core standard for metadata](https://www.dublincore.org/specifications/dublin-core/dcmi-terms/), and the associated semantics match what is defined there.
 
-* __relation__: A file that carries this type of CFA annotation declares itself to be the one and only core file in the CFA.
+* [identifier](https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/identifier): A file that carries this type of CFA annotation declares itself to be the one and only core file in the CFA. Thus, the identifier in the `value` half of the pair can be used as a one-to-one lookup key for the file. All other files in the same CFA must be aux files (see the "relation" variant next).
+
+* [relation](https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/relation): A file that carries this type of CFA annotation declares itself to be dependent upon a CFA core that's associated with the identifier in the `value` half of the metadata pair. Thus, it is what CFA considers an aux file.
+
+* [isPartOf](https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/isPartOf): A file that carries this type of CFA annotation declares itself to be part of a multi-file core.
+
+To understand how these annotations might be used, consider a case where the composer writes a piece of music for the violin. Later, she arranges a derivative version for the clarinet. The clarinet version is aux &mdash; dependent upon the original violin composition &mdash; which is core. In such a case, and assuming the composer chooses arbitrary identifier `68d15148-a0bd-4716-9618-061a17389689` for the CFA, she would embed metadata in her core violin composition that says:
+
+    identifier = 68d15148-a0bd-4716-9618-061a17389689
+
+And she would embed metadata in her aux clarinet arrangement that says:
+
+    relation = 68d15148-a0bd-4716-9618-061a17389689
+
+The metadata expresses a directional CFA.
+
+![directional metadata CFA](directional-metadata-cfa.png)
+
+Now suppose that the composer writes a symphony that has 4 movements. Each movement is a separate digital file emitted by her composition software. She wants them to be associated with the arbitrary identifier `972d639a-04d7-4c1e-9ea9-196e94b05eb0` to bind her symphony together, so she embeds metadata in each movement's digital file. The metadata says:
+
+    isPartOf = 972d639a-04d7-4c1e-9ea9-196e94b05eb0
+
+The metadata in this situation also expresses a directional CFA, but all the files we've talked about so far are core. However, the possibility of aux is still useful. If three recordings of this symphony are performed, the composer can mark the recordings as aux, dependent on the composite core: 
+
+![composite core metadata CFA](composite-core-metadata-cfa.png)
