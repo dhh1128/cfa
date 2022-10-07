@@ -16,7 +16,7 @@ When a file is party to a CFA, we say that the file __binds__ the CFA. A given f
 
 CFAs can be either __directional__ or __directionless__.
 
-A directional CFA confers special status on a subset of its bound files that are *essential*. These are known as __core files__. Other files are dependent on this core; they lose meaning if the core is missing. These are __aux files__.
+A directional CFA confers special status on a subset of its bound files that are *first* (possibly, meaning more important, but certainly meaning that they should exist before the rest of the set can be populated). These are known as __core files__. Other files are dependent on this core; they cannot be created until the core exists, and they typically lose meaning if the core is missing. These are __aux files__.
 
 A directionless CFA lacks this dependency construct; it models a simple set in which all bound files are peer, aux files.
 
@@ -109,3 +109,24 @@ Now suppose that the composer writes a symphony that has 4 movements. Each movem
 The metadata in this situation also expresses a directional CFA, but all the files we've talked about so far are core. However, the possibility of aux is still useful. If three recordings of this symphony are performed, the composer can mark the recordings as aux, dependent on the composite core: 
 
 ![composite core metadata CFA](composite-core-metadata-cfa.png)
+
+### Clarifiers
+
+__Clarifiers__ are optional, supplemental annotations that let a content creator specify the *cardinality* of a set, and characterize the nature of a dependency. They can change a CFA from saying "This file is core and may have aux files" to "This file is core and has exactly one aux file that is a digital signature over the core."
+
+In external strategies, clarifiers manifest as an additional infix in a filename. In internal strategies, they are an extra token appended to the `value` portion of a `name=value` metadata pair.
+
+A clarifier is a three-part string. The first and third parts are cardinality numbers that quantify how many core and aux files, respectively, are known to be part of the set. For a CFA binding a spreadsheet to a digital signature, both of these numbers would be 1 &mdash; it's a 1-to-1 relationship. For a CFA binding the 4 movements of a symphony, the first number would be 4, since all 4 movements are core. If cardinality is not known, the number is omitted. A cardinality of 0 means that no files in the set have the corresponding status. 
+
+The middle part of a clarifier is a __dependency predicate symbol__. The following symbols are defined:
+
+symbol | meaning                                               | sample use cases
+--- |-------------------------------------------------------| ---
+c | aux <u>c</u>ites core                                 | An academic paper (core) and a subsequent paper that quotes from it (aux). An affidavit (core) and a legal filing that references it (aux).
+d | aux <u>d</u>erives from core                          | A violin concerto (core) that spawns an arrangement for clarinet (aux). A novel (core) and its audiobook version (aux). A repo of source code (core) and its forks (aux).
+f | aux <u>f</u>ollows (answers, replies to) core         | A tweet (core) and a reply (aux). A critique (core) and a rebuttal (aux). An email (core) and a response (aux).
+r | aux <u>r</u>eviews core                               | A financial statement (core) and an auditor's report (aux). An album (core) and a review by a music critic (aux).
+s | aux <u>s</u>upersedes core                            | Version 1 of a formal standard (core) and version 2 (aux).
+t | aux <u>t</u>ransforms core (typically in a lossy way) | A news article (core) and translations (aux). A vector graphic (core) and a bitmap graphic (aux). An audio stream (core) and a transcription (aux). A FLAC audio recording (core) and its .mp3 compression (aux). In general, transformations that are not lossy (e.g., a file in zipped and unzipped form, the same text encoded in UTF-16 and UTF-8) do not have an obvious core-to-aux directionality and are thus thought of as multi-core (not needing clarification).
+v | aux <u>v</u>erifies core                              | A spreadsheet (core) and its digital signature (aux). A downloadable software package (core) and its hash (aux). A git commit (core) and its hash (aux). A piece of malware (core) and its distinctive profile/signature (aux). A credential presentation, including nonce (core) and its signature (aux).
+x | default                                               | Generic/ill-defined dependency, or multiple aux files exist with different meanings. Separates the two cardinalities without asserting any special semantics.
