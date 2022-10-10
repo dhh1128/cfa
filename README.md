@@ -1,10 +1,12 @@
 # Cross-File Associations
 
-Cross-File Associations (CFAs) are conventions that reveal and preserve connections among files and file-like objects. They can be used to make software and humans smarter about grouping things together. The goal is not extremely precise semantics, but rather a significantly better clarity with minimal effort.
+Cross-File Associations (CFAs) are conventions that reveal and preserve connections among files and file-like objects. They make software and humans smarter about grouping things together.
 
-CFAs are simple enough that a human can learn the basics in a couple minutes, but robust enough to provide a foundation for sophisticated software.
+CFAs aren't for expressing every nuance of relationships; rather, they make it easy to say the basics. They aim for a sweet spot: simple enough for anybody to use, but sophisticated enough to enable powerful features in software.
 
-Consider an email that includes as attachments a slide deck, photos, a spreadsheet, and a digital signature. A CFA can make it obvious that the digital signature is bound to the spreadsheet. Noticing the CFA, email client can encourage uploading or downloading the two associated files as a unit, and warn if they become separated.
+Consider an email that includes as attachments a slide deck, photos, a spreadsheet, and a digital signature. A CFA can make it obvious that the digital signature is bound to the spreadsheet. Noticing the CFA, email clients can encourage uploading or downloading the two associated files as a unit, and warn if they become separated.
+
+![CFA example](cfa-example.png)
 
 ## Quick Reference
 
@@ -29,7 +31,7 @@ If the same audio recording is saved in both .flac and .mp3 format, the two file
 
 A common CFA is not directed toward *pre*; it models a simple set in which all bound files are *co*.
 
-A given file may be *pre* in one CFA, and *co* in another. 
+A given file may have *pre* status in one CFA, and *co* status in another. 
 
 ![directed vs. common CFAs](directed-vs-common-cfas.png)
 
