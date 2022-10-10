@@ -2,7 +2,7 @@
 
 Cross-File Associations (CFAs) are conventions that reveal and preserve connections among files and file-like objects. They make software and humans smarter about grouping things together.
 
-CFAs aren't for expressing every nuance of relationships; rather, they make it easy to say the basics. They aim for a sweet spot: simple enough for anybody to use, but sophisticated enough to enable powerful features in software.
+CFAs aren't for expressing every nuance of relationships; rather, they make it easy to say the basics. They aim for a sweet spot: simple enough for anybody to use, and requiring nothing special from existing tools &mdash; but sophisticated enough to enable powerful features in software that wants to be helpful.
 
 Consider an email that includes as attachments a slide deck, photos, a spreadsheet, and a digital signature. A CFA can make it obvious that the digital signature is bound to the spreadsheet. Noticing the CFA, email clients can encourage uploading or downloading the two associated files as a unit, and warn if they become separated.
 
