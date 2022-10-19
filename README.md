@@ -123,6 +123,12 @@ The metadata in this situation also expresses a directional CFA, but all the fil
 
 ![multi-part pre metadata CFA](multi-pre-metadata-cfa.png)
 
+### Inline Content
+
+TODO The final CFA strategy that we'll cover here is to embed CFA information directly into the content of a file. This is done with __CFA texts__ in the form "CFA: name=value", where <var>name</var> and <var>value</value> are used exactly the same way as in the [metadata](#metadata) strategy.
+
+This strategy can be used with file formats that have no natural metadata features, or in cases where an internal strategy is desirable but metadata is not convenient. For example, adding text in this format to messages emitted by software could allow CFAs to be constructed for log files. This strategy may also be 
+
 ### Clarifiers
 
 __Clarifiers__ are optional annotations that can be added to a CFA strategy. They let a content creator specify the *cardinality* of a set and characterize the nature of a dependency. Clarifiers can enhance a CFA so that instead of communicating "This file is pre and may have co files," it communicates, for example, "This file is pre and has exactly one co file that is a digital signature over the pre."
@@ -147,3 +153,21 @@ s | co <u>s</u>upersedes pre                            | Version 1 of a formal 
 t | co <u>t</u>ransforms pre (typically in a lossy way) | A news article (pre) and translations (co). A vector graphic (pre) and a bitmap graphic (co). An audio stream (pre) and a transcription (co). A FLAC audio recording (pre) and its .mp3 compression (co). In general, transformations that are not lossy (e.g., a file in zipped and unzipped form, the same text encoded in UTF-16 and UTF-8) do not have an obvious pre-to-co directionality and are thus thought of as multi-pre (not needing clarification).
 v | co <u>v</u>erifies pre                              | A spreadsheet (pre) and its digital signature (co). A downloadable software package (pre) and its hash (co). A git commit (pre) and its hash (co). A piece of malware (pre) and its distinctive profile/signature (co). A credential presentation, including nonce (pre) and its signature (co).
 x | default                                               | Generic/ill-defined dependency, or multiple co files exist with different meanings. Separates the two cardinalities without asserting any special semantics.
+
+#### Examples of clarifiers
+
+TODO: put them after infix, if appear in both; put them on pre
+TODO: explain that cardinality isn't known by pre
+
+### The Power of Identifiers
+TODO The semantics associated with CFAs depend in part on how they are identified. In the case of sidecars, the identifier for the sidecar is simply the name of the pre file; it can carry no additional semantics, and its uniqueness depends on the content of its container. Infixes identify the CFA separately from the stem of their filename, but are also container-dependent.
+
+UUIDs are a convenient form of identifier, and they have the advantage of being globally unique. UUID form 4 carries the additional semantic that all UUIDs created by the same hardware will have something in common, which asserts something about common origin for many CFAs.
+
+URLs are another possible identifier type. These have the advantage that the CFA can be described at the URL in question. For example, the musician who wants to unify all works in their career corpus, and who uses the URL https://mymusicalcareer.com/corpus as the identifier for this CFA, can publish a catalog or similar informat about the corpus at that URL. However, URLs are notoriously unstable; using a PURL may be advisable.
+
+A DID adds the notion of cryptographically provable control to the CFA. With such identifiers, the owner of the identifier can prove they control the identifier, and by implication, the CFA. The composer who identifies her corpus with a CFA identified by a DID can thus set herself up as the indisputable authority on the question of whether any particular file deserves to be part of the CFA, *in her opinion as the CFA owner*. This does not mean the file's authorship can be proved &mdash; the CFA owner might have stolen it &mdash; but the identity of the CFA's controller becomes verifiable. Further, it becomes possible to carry out a secure communication with the author using a communications technique like DIDComm.
+
+An AID goes one step beyond DIDs. Most DID methods depend on the availability of a blockchain for resolution, and do not guard against the possibility that someone other than the creator of the DID registered it. AIDs are self-certifying and blockchain-independent, allowing their use with any or no blockchain at all, and guaranteeing a perfect chain of custody from inception.
+
+CFAs bound with the Metadata or Inline Content strategy can use AIDs or DIDs to identify the relationship, and thus pick up all the advantages we're talking about here.
