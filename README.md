@@ -39,11 +39,11 @@ There are different ways to declare a CFA. We call them __strategies__. Differen
 
 When the strategy that binds a file to a CFA requires changes to the content of the file, we say that the strategy is __internal__, or that the file is __internally bound__ to that CFA. When the binding convention manifests outside the content of the file, we say that the strategy is __external__, or that the file is __externally bound__. External and internal strategies are not mutually exclusive; a given file may use both to bind CFAs.
 
-## Strategies
+### Strategies
 
 Several strategies for declaring a CFA are currently standardized.
 
-### Sidecar
+#### 1. Sidecar Strategy
 
 One strategy is to name files in a way that embodies the __sidecar__ naming pattern. In this strategy, there is one pre file in the CFA, and it has any arbitrary name. Any co files are called "sidecars" because their names are dependent on the pre: a sidecar name equals the name of the pre file followed by a unique, descriptive suffix.
 
@@ -59,7 +59,7 @@ Sidecar CFAs are directional and external. Like all external strategies, they ar
 
 Sidecar naming is easy and intuitive; in fact, it is already used as described here by many individuals and software packages that are making CFAs without instruction. However, it's not as powerful as some other strategies.
 
-### Shared Stem
+#### 2. Shared Stem Strategy
 
 A variation on sidecars is to associate files by giving their name a common __stem__, varying only in the extension portion. The stem of a filename is the portion before the first `.` character. Digital cameras and related software often uses this strategy &mdash; saving `.raw` + `.tiff` or `.heic` + `.jpg` versions of each photo as associated pairs.
 
@@ -69,7 +69,7 @@ Although shared stems resemble sidecars in some ways, their semantics are differ
 
 Like sidecars, shared stems are easy and intuitive, but their expressiveness is limited.
 
-### Infix
+#### 3. Infix Strategy
 
 Another simple CFA convention is the __infix__ pattern. In this pattern, files that bind the same CFA share a common 1-to-3-digit infix in their names. The infix cannot begin a name. It must be preceded by two hyphens and followed by a non-word character.
 
@@ -83,7 +83,7 @@ A file may bind more than one infix in its name: `tangled-bumpers&mdash;1&mdash;
 
 Normally, infixes are directionless; however, advanced options can change this.
 
-### Metadata
+#### 4. Metadata Strategy
 
 Files that have formats capable of formally declaring metadata may embed CFAs using whatever syntax their format allows. Because the CFA information is inside the file, this is an internal strategy.
 
@@ -123,7 +123,7 @@ The metadata in this situation also expresses a directional CFA, but all the fil
 
 ![multi-part pre metadata CFA](multi-pre-metadata-cfa.png)
 
-### Inline Content
+#### 5. Inline Content Strategy
 
 TODO The final CFA strategy that we'll cover here is to embed CFA information directly into the content of a file. This is done with __CFA statements__ in the form "CFA:name=value", where <var>name</var> and <var>value</value> are used exactly the same way as in the [metadata](#metadata) strategy.
 
@@ -131,7 +131,9 @@ This strategy can be used with file formats that have no natural metadata featur
 
 This convention can also be applied to containers, binding the container as a whole to one or more CFAs. Since the content of a container is files, adding content to the container means adding a file. This file must be named `.cfas`. It must be plain text and consist of one or more CFA statements, one per line. Any lines that don't match the CFA statement regex are ignored.
 
-### Clarifiers
+### Advanced Features
+
+#### Clarifiers
 
 __Clarifiers__ are optional annotations that can be added to a CFA strategy. They let a content creator specify the *cardinality* of a set and characterize the nature of a dependency. Clarifiers can enhance a CFA so that instead of communicating "This file is pre and may have co files," it communicates, for example, "This file is pre and has exactly one co file that is a digital signature over the pre."
 
@@ -156,20 +158,21 @@ t | co <u>t</u>ransforms pre (typically in a lossy way) | A news article (pre) a
 v | co <u>v</u>erifies pre                              | A spreadsheet (pre) and its digital signature (co). A downloadable software package (pre) and its hash (co). A git commit (pre) and its hash (co). A piece of malware (pre) and its distinctive profile/signature (co). A credential presentation, including nonce (pre) and its signature (co).
 x | default                                               | Generic/ill-defined dependency, or multiple co files exist with different meanings. Separates the two cardinalities without asserting any special semantics.
 
-#### Examples of clarifiers
+##### Examples of clarifiers
 
 TODO: put them after infix, if appear in both; put them on pre
 TODO: explain that cardinality isn't known by pre
 
-### The Power of Identifiers
+#### CFA Identifiers
+
 TODO The semantics associated with CFAs depend in part on how they are identified. In the case of sidecars, the identifier for the sidecar is simply the name of the pre file; it can carry no additional semantics, and its uniqueness depends on the content of its container. Infixes identify the CFA separately from the stem of their filename, but are also container-dependent.
 
 UUIDs are a convenient form of identifier, and they have the advantage of being globally unique. UUID form 4 carries the additional semantic that all UUIDs created by the same hardware will have something in common, which asserts something about common origin for many CFAs.
 
 URLs are another possible identifier type. These have the advantage that the CFA can be described at the URL in question. For example, the musician who wants to unify all works in their career corpus, and who uses the URL https://mymusicalcareer.com/corpus as the identifier for this CFA, can publish a catalog or similar informat about the corpus at that URL. However, URLs are notoriously unstable; using a PURL may be advisable.
 
-A DID adds the notion of cryptographically provable control to the CFA. With such identifiers, the owner of the identifier can prove they control the identifier, and by implication, the CFA. The composer who identifies her corpus with a CFA identified by a DID can thus set herself up as the indisputable authority on the question of whether any particular file deserves to be part of the CFA, *in her opinion as the CFA owner*. This does not mean the file's authorship can be proved &mdash; the CFA owner might have stolen it &mdash; but the identity of the CFA's controller becomes verifiable. Further, it becomes possible to carry out a secure communication with the author using a communications technique like DIDComm.
+A [decentralized identifier (DID)](https://www.w3.org/TR/did-core/) adds the notion of cryptographically provable control to the CFA. With such identifiers, the owner of the identifier can prove they control the identifier, and by implication, the CFA. The composer who identifies her corpus with a CFA identified by a DID can thus set herself up as the indisputable authority on the question of whether any particular file deserves to be part of the CFA, *in her opinion as the CFA owner*. This does not mean the file's authorship can be proved &mdash; the CFA owner might have stolen it &mdash; but the identity of the CFA's controller becomes verifiable. Further, it becomes possible to carry out a secure communication with the author using a communications technique like DIDComm.
 
-An AID goes one step beyond DIDs. Most DID methods depend on the availability of a blockchain for resolution, and do not guard against the possibility that someone other than the creator of the DID registered it. AIDs are self-certifying and blockchain-independent, allowing their use with any or no blockchain at all, and guaranteeing a perfect chain of custody from inception.
+An [autonomic identifier (AID)](https://arxiv.org/abs/1907.02143) is a form of decentralized identifier that further enhances security and decentralization. Most DID methods depend on the availability of a blockchain for resolution, and do not guard against the possibility that someone other than the creator of the DID registered it. In contrast, AIDs are self-certifying &mdash; meaning they guarantee a perfect chain of custody from inception &mdash; blockchain-independent &mdash; allowing their use with any or no blockchain at all &mdash; and use a sophisticated key pre-rotation technique to maximize key hygeine and provide post-quantum safety.
 
 CFAs bound with the Metadata or Inline Content strategy can use AIDs or DIDs to identify the relationship, and thus pick up all the advantages we're talking about here.
