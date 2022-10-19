@@ -125,9 +125,11 @@ The metadata in this situation also expresses a directional CFA, but all the fil
 
 ### Inline Content
 
-TODO The final CFA strategy that we'll cover here is to embed CFA information directly into the content of a file. This is done with __CFA texts__ in the form "CFA: name=value", where <var>name</var> and <var>value</value> are used exactly the same way as in the [metadata](#metadata) strategy.
+TODO The final CFA strategy that we'll cover here is to embed CFA information directly into the content of a file. This is done with __CFA statements__ in the form "CFA:name=value", where <var>name</var> and <var>value</value> are used exactly the same way as in the [metadata](#metadata) strategy.
 
-This strategy can be used with file formats that have no natural metadata features, or in cases where an internal strategy is desirable but metadata is not convenient. For example, adding text in this format to messages emitted by software could allow CFAs to be constructed for log files. This strategy may also be 
+This strategy can be used with file formats that have no natural metadata features, or in cases where an internal strategy is desirable but metadata is not. For example, adding text in this format to status messages emitted by software could allow CFAs to be constructed for log files.
+
+This convention can also be applied to containers, binding the container as a whole to one or more CFAs. Since the content of a container is files, adding content to the container means adding a file. This file must be named `.cfas`. It must be plain text and consist of one or more CFA statements, one per line. Any lines that don't match the CFA statement regex are ignored.
 
 ### Clarifiers
 
