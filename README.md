@@ -1,23 +1,33 @@
+Ideas:
+
+* what relationships does this file have to other files (and to its container)
+* what kind of relationship is it?
+* how many in the relationship?
+* what are the types of the files?
+* 
+* CFA statements in form: s i identifier clarifier
+* some statements can be about container (first letter is 'c'...)
+* embed a filename regex in SAID placeholder
+* declare that a file must have a sidecar named .cfas?
+    s i {fname} 1c1
+
 # Cross-File Associations
 
-Cross-File Associations (CFAs) are conventions that reveal and preserve connections among files and file-like objects. They make software and humans smarter about grouping things together.
+Cross-File Associations (CFAs) are a way to declare relationships among files and file-like objects. They help software and humans to be smarter about grouping things together.
 
-CFAs aren't for expressing every nuance of relationships; rather, they make it easy to say the basics. They aim for a sweet spot: simple enough for anybody to use without special tools &mdash; but sophisticated enough to enable powerful features in software that wants to be helpful.
+CFAs aren't for expressing every nuance of relationships; rather, they make it easy to say the basics. They're simple enough for anybody to use without special tools, but sophisticated enough to enable powerful features in software that wants to be helpful.
 
 Consider an email that includes as attachments a slide deck, photos, a spreadsheet, and a digital signature. A CFA can make it obvious that the digital signature is bound to the spreadsheet. Noticing the CFA, email clients can encourage uploading or downloading the two associated files as a unit, and warn if they become separated.
 
 ![CFA example](cfa-example.png)
 
-## Quick Reference
-
-
 ## Tutorial
 
 ### Concepts
 
-The theory behind CFAs is described in [an academic paper](https://example.com), and the [specification for CFAs](https://github.com/dhh1128/cfa-rfc) is published as an RFC. We'll skip most of the details in this tutorial, but we still need to define a few terms.
+The theory behind CFAs is described in [an academic paper](https://docs.google.com/document/d/1rjjPIhRTlfH4kQYt0t8LBuamAXn63VQHUpUqvdMSGUY/edit), and the [specification for CFAs](https://github.com/dhh1128/cfa-rfc) is being managed as an RFC draft. We'll skip most of the details in this tutorial, but we still need to define a few terms.
 
-In the context of CFAs, a __file__ is anything that has a name/identifier and content &mdash; the familiar artifact in a file system, but also a web page, a tweet, a piece of data, etc. A __container__ is anything that holds files: a folder, an email, a zip file, a database, an S3 bucket, and so forth.
+In the context of CFAs, a __file__ is anything that has a name/identifier and content &mdash; the familiar artifact in a file system, but also a web page, a tweet, a piece of data, etc. A __container__ is anything that holds files: a folder, an email, a database, an S3 bucket, and so forth. These two object categories are not mutually exclusive; files can be containers (e.g., zip files), and containers can be thought of as files (e.g., emails saved as .eml).
 
 When a file participates in a cross-file association, we say that the file __binds__ the CFA. A given file may bind zero or more CFAs.
 
@@ -35,7 +45,9 @@ A given file may have *pre* status in one CFA, and *co* status in another.
 
 ![directed vs. common CFAs](directed-vs-common-cfas.png)
 
-There are different ways to declare a CFA. We call them __strategies__. Different strategies have different pros and cons.
+Sometimes, co files are created by different authors than the pre file they depend on. A student who writes an essay explicating a poem is creating a co file that depends on the poem as a pre file. This could happen long after the poet is dead, and without the poet's active cooperation. Thus, co files may know more about pre files than vice versa.
+
+There are various ways to declare a CFA. We call them __strategies__. Different strategies have different pros and cons.
 
 When the strategy that binds a file to a CFA requires changes to the content of the file, we say that the strategy is __internal__, or that the file is __internally bound__ to that CFA. When the binding convention manifests outside the content of the file, we say that the strategy is __external__, or that the file is __externally bound__. External and internal strategies are not mutually exclusive; a given file may use both to bind CFAs.
 
@@ -45,7 +57,7 @@ Several strategies for declaring a CFA are currently standardized.
 
 #### 1. Sidecar Strategy
 
-One strategy is to name files in a way that embodies the __sidecar__ naming pattern. In this strategy, there is one pre file in the CFA, and it has any arbitrary name. Any co files are called "sidecars" because their names are dependent on the pre: a sidecar name equals the name of the pre file followed by a unique, descriptive suffix.
+One simple strategy is to name files in a way that embodies the __sidecar__ naming pattern. In this strategy, there is one pre file in the CFA, and it has any arbitrary name. Any co files are called "sidecars" because their names are dependent on the pre: a sidecar name equals the name of the pre file followed by a unique, descriptive suffix.
 
 Referencing the spreadsheet-digital-signature-in-email example that we mentioned above, if the spreadsheet attachment is named `balance-sheet.xlsx`, and the digital signature attachment is named `balance-sheet.xlsx.sig`, an email client can know that a sidecar CFA is active; the spreadsheet is the pre file, and the digital signature is co.
 
@@ -53,39 +65,99 @@ Referencing the spreadsheet-digital-signature-in-email example that we mentioned
 
 Sidecar CFAs are not always pairwise. We could add a third file in the same container and name it `balance-sheet.xlsx-audit-report.docx`; this would be an additional sidecar bound to the same CFA.
 
-In sidecar names, the boundary between the pre name and the unique sidecar suffix must be delimited by a non-word character such as a space, `.`, `-`, or `_`.
+In sidecar names, the boundary between the pre name and the unique sidecar suffix must be delimited by one or more non-word characters such as a space, `.`, `-`, or `_`.
 
-Sidecar CFAs are directional and external. Like all external strategies, they are also container-dependent; the relationship implied by the naming convention cannot be evaluated except within the context of a shared container.
+Sidecar CFAs are *directional* and *external*. Like all external strategies, they are also container-dependent; the relationship implied by the naming convention cannot be evaluated except within the context of a shared container.
 
-Sidecar naming is easy and intuitive; in fact, it is already used as described here by many individuals and software packages that are making CFAs without instruction. However, it's not as powerful as some other strategies.
+Sidecar naming is easy and intuitive. In fact, this strategy is already used by many individuals and software packages; they are making CFAs even if they don't describe it in these terms. However, sidecars are not as powerful as some other strategies.
 
 #### 2. Shared Stem Strategy
 
-A variation on sidecars is to associate files by giving their name a common __stem__, varying only in the extension portion. The stem of a filename is the portion before the first `.` character. Digital cameras and related software often uses this strategy &mdash; saving `.raw` + `.tiff` or `.heic` + `.jpg` versions of each photo as associated pairs.
+A variation on sidecars is to associate files by giving their name a common __stem__, varying only at the end. The stem of a filename is the portion before the first `.` character. Digital cameras and related software often uses this strategy &mdash; saving `.raw` + `.tiff` or `.heic` + `.jpg` versions of each photo as associated pairs.
 
 ![shared stem CFA](shared-stem-cfa.png)
 
-Although shared stems resemble sidecars in some ways, their semantics are different. Shared stems are directionless; within the files that share a stem, there is no notion of dependency. This makes them an awkward fit for the spreadsheet-digital-signature-in-email example we used above. Naming the spreadsheet `balance-sheet.xlsx` and the signature `balance-sheet.sig` *does* connect them, but it does not convey the idea that the signature is meaningless without the spreadsheet.
+Although shared stems resemble sidecars in some ways, their semantics are different. Shared stem CFAs are *common*; within the files that share a stem, there is no notion of dependency. This makes them an awkward fit for the spreadsheet-digital-signature-in-email example we used above. Naming the spreadsheet `balance-sheet.xlsx` and the signature `balance-sheet.sig` *does* connect them, but it does not convey the idea that the signature is meaningless without the spreadsheet.
 
 Like sidecars, shared stems are easy and intuitive, but their expressiveness is limited.
 
 #### 3. Infix Strategy
 
-Another simple CFA convention is the __infix__ pattern. In this pattern, files that bind the same CFA share a common 1-to-3-digit infix in their names. The infix cannot begin a name. It must be preceded by two hyphens and followed by a non-word character.
+Another simple and external CFA convention is the __infix__ pattern. In this pattern, files that bind the same CFA share a common 1-to-3-digit infix in their names. The infix cannot begin a name. It must be preceded by two hyphens and followed by a non-word character.
 
-Suppose a police photographer is documenting an accident that involved several vehicles, and each will be photographed from multiple angles and lighting conditions. They might associate photos of vehicle 1 using a common infix: `front-bumper&mdash;01.jpg` and `drivers-door&mdash;01.jpg`, respectively.
+Suppose a police photographer is documenting an accident that involved several vehicles, and each will be photographed from multiple angles and lighting conditions. They might associate photos of vehicle 1 using a common infix: `front-bumper--01.jpg` and `drivers-door--01.jpg`, respectively.
 
 ![infix CFA](infix-cfa.png)
 
 Infixes are compared numerically, not textually; this means an infix of `01` and an infix of `1` are equivalent.
 
-A file may bind more than one infix in its name: `tangled-bumpers&mdash;1&mdash;3.jpg` is a member of CFAs using both the `1` and `3` infixes, and might show both vehicles 1 and 3 in our example.
+A file may bind more than one infix in its name: `tangled-bumpers--1--3.jpg` is a member of CFAs using both the `1` and `3` infixes, and might show both vehicles 1 and 3 in our example.
 
-Normally, infixes are directionless; however, advanced options can change this.
+Normally, infix CFAs are *common*; however, advanced options can change this.
+
+#### 4. Statements Strategy
+
+The final fundamental strategy for declaring CFAs is to express them in __CFA statements__. These are short coded sentences that convey a wealth of information. Statements are more powerful than the external strategies, but also more complex. The sentences can be placed in various locations; before we talk about where, let's explore how the statements are structured and what they can say.
+
+##### Structure
+
+A CFA statement is structured a bit like a sentence in natural language: it consists of a sequence of space-separated tokens, on a single line. When more than one statement appear together, they may be separated by a `.` character. An example of a CFA statement is:
+
+```
+is 68d15148-a0bd-4716-9618-061a17389689 1 v 1 (n /{stem}\.sig$/).
+```
+
+In plain English, this statement says: "*This file has a pre role in a CFA identified by the string `68d15148-a0bd-4716-9618-061a17389689`. Exactly 1 pre and 1 co file are known to bind this CFA, and the co file provides cryptographic verification of the pre file. The co file should have a filename that is the same as the pre file, but with an extra `.sig` as a suffix.*"
+
+Instructions for parsing CFA statements (ABNF and regex) are provided in the Developer Guide. Here, we'll simply say that statements use this token sequence:
+
+```
+view identifier [pre [descriptors] predicate co [descriptors]]
+```
+
+##### Views
+
+A given CFA statement begins with a __view__. This token describes what the relationship between the file and the CFA looks like, from the perspective of the file that holds the statement:
+
+view | meaning
+--- | ---
+`is` | Says that the bound file is uniquely identified by the next token in the statement. The file is thus the one and only pre file in the set, and the identifier indexes both the file and the CFA. This matches the semantics of the [`identifier`](https://www.dublinpre.org/specifications/dublin-pre/dcmi-terms/#http://purl.org/dc/terms/identifier) keyword in the Dublin Core metadata standard.
+`depends on` | Says that this file depends on something identified by the next token in the statement. The file is thus co, either to a pre or to a common CFA. This matches the semantics of the [relation](https://www.dublinpre.org/specifications/dublin-pre/dcmi-terms/#http://purl.org/dc/terms/relation) keyword in the Dublin Core metadata standard.
+`part of` | Says that this file is part of a multi-file pre, collectively identified by the next token in the statement. This matches the semantics of [`isPartOf`](https://www.dublinpre.org/specifications/dublin-pre/dcmi-terms/#http://purl.org/dc/terms/isPartOf) in the Dublin Core metadata standard.
+
+##### Identifiers
+
+Identifiers in CFA statements can be anything that's globally unique. TODO The semantics associated with CFAs depend in part on how they are identified. In the case of sidecars, the identifier for the sidecar is simply the name of the pre file; it can carry no additional semantics, and its uniqueness depends on the content of its container. Infixes identify the CFA separately from the stem of their filename, but are also container-dependent.
+
+UUIDs are a convenient form of identifier, and they have the advantage of being globally unique. UUID form 4 carries the additional semantic that all UUIDs created by the same hardware will have something in common, which asserts something about common origin for many CFAs.
+
+URLs are another possible identifier type. These have the advantage that the CFA can be described at the URL in question. For example, the musician who wants to unify all works in their career corpus, and who uses the URL https://mymusicalcareer.com/corpus as the identifier for this CFA, can publish a catalog or similar informat about the corpus at that URL. However, URLs are notoriously unstable; using a PURL may be advisable.
+
+A [decentralized identifier (DID)](https://www.w3.org/TR/did-core/) adds the notion of cryptographically provable control to the CFA. With such identifiers, the owner of the identifier can prove they control the identifier, and by implication, the CFA. The composer who identifies her corpus with a CFA identified by a DID can thus set herself up as the indisputable authority on the question of whether any particular file deserves to be part of the CFA, *in her opinion as the CFA owner*. This does not mean the file's authorship can be proved &mdash; the CFA owner might have stolen it &mdash; but the identity of the CFA's controller becomes verifiable. Further, it becomes possible to carry out a secure communication with the author using a communications technique like DIDComm.
+
+An [autonomic identifier (AID)](https://arxiv.org/abs/1907.02143) is a form of decentralized identifier that further enhances security and decentralization. Most DID methods depend on the availability of a blockchain for resolution, and do not guard against the possibility that someone other than the creator of the DID registered it. In contrast, AIDs are self-certifying &mdash; meaning they guarantee a perfect chain of custody from inception &mdash; blockchain-independent &mdash; allowing their use with any or no blockchain at all &mdash; and use a sophisticated key pre-rotation technique to maximize key hygeine and provide post-quantum safety.
+
+A [self-addressing identifier (SAID)](https://www.youtube.com/watch?v=n7tBOPHdtdw) goes one step further still, by binding an identifier to the content of the file itself. This form of identifier can actually prove that a composer is the author of the work, not just the author of a CFA to which the work is bound. This is because the SAID is a hash of the rest of the content of the file &mdash; everything except the SAID itself.
+
+Unfortunately, SAIDs come with a challenge, which is that the content of the file cannot change at all without breaking the SAID. This is problematic when it's difficult to inject a SAID value after the file content is written (e.g., the file format is encrypted or undocumented, compression or binary transformations make the SAID hard to find, or injecting the SAID causes ripple effects that invalidate the hash). Unexpected breakage can also happen if software modifies in ways that are not obvious to a human intending view-only actions (e.g., automatically saving a last-printed date).
+
+To solve this problem, we introduce the concept of an __externalized SAID__. This consists of two pieces of data. One, the __SAID placeholder__, lives inside the file in the place that the SAID would normally occupy. The other, the __SAID value__, lives outside the file in its filename (or in the identifier that its container uses to refer to it).
+
+The SAID placeholder is a string in the form: `XSAID:x:y`, where x is an AID value and y is a filename fragment.
+
+When CFA-aware software encounters a file that declares a metadata or inline content CFA having a value that is a SAID placeholder, it knows that the filename MUST contain an actual SAID value, and it knows what that SAID value must be: *the hash of the file content, including the SAID placeholder*. It also knows that the filename MUST include the filename fragment `y`. If the file doesn't have such a name that matches this pattern, the filename is invalid.
+
+This mechanism solves the chicken-and-egg problem of software not allowing a SAID value to be injected, because the SAID value is externalized to the filename that can be changed independent of (and after) the content. Yet the content and the filename still have a verifiable binding. Anybody who either removes the SAID or the fragment from the filename, OR who changes the content of the file, without completing the other operation, leaves evidence of tampering. The filename derives from its content.
+
+If a SAID placeholder is used as the `value` portion of a CFA `name=value` pair, and if the entropy portion of the SAID placeholder is an AID, then the CFA has a verifiable owner &mdash; whoever controls the keys of the AID. It also has a verifiable filename for its pre file, making it difficult to manipulating the filename in a way that mischaracterizes it.
+
+The strength of this integrity protection depends on why it's hard to inject a standard SAID. If it's because the file is encrypted, or because changing a string will have ripple effects on the rest of the content that are intolerable to an attacker, the protection is strong. Otherwise, it is just a casual deterrent &mdash; not nearly as strong as a standard internal SAID.
+
+None of this guarantees that the author of a file protected in this way is in fact the original author of the content. Malfoy could use an externalized SAID on a file that contains content copied from some other author. The solution to this problem is not a hashing, signing, or CFA mechanism. Rather, if Alice wants absolute proof that she is the author, she must write the content to IPFS or a blockchain asa proof of existence at time X. Any party who produces substantially the same content but can only demonstrate a later timestamp has a derivative work. If this proof of existence is combined with an externalized SAID as a CFA identifier, then Alice can also prove the CFA was part of the file when it was created.
 
 #### 4. Metadata Strategy
 
-Files that have formats capable of formally declaring metadata may embed CFAs using whatever syntax their format allows. Because the CFA information is inside the file, this is an internal strategy.
+Files that have formats capable of formally declaring metadata may embed CFAs using whatever syntax their format allows. Because the CFA information is inside the file, this is an *internal* strategy. Internal strategies have more expressive power because they use __CFA statements__.
 
 The location and syntax for declaring metadata varies by file format, so this strategy has various permutations. However, the principles are always the same. We'll describe the principles, and then explain how those principles manifest in various formats.
 
@@ -97,11 +169,6 @@ Suppose a composer of classical music wants to mark all her compositions as belo
 
 When creating CFA metadata annotations, three variants of the `name` half of the pair are defined. These correspond to three different perspectives on the CFA relationship. The perspectives come from the [Dublin pre standard for metadata](https://www.dublinpre.org/specifications/dublin-pre/dcmi-terms/), and the associated semantics match what is defined there.
 
-* [identifier](https://www.dublinpre.org/specifications/dublin-pre/dcmi-terms/#http://purl.org/dc/terms/identifier): A file with this perspective on a CFA declares itself to be the one and only pre file in the CFA. Thus, the identifier in the `value` half of the pair can be used as a one-to-one lookup key for the file. All other files in the same CFA must be co files (see the "relation" variant next).
-
-* [relation](https://www.dublinpre.org/specifications/dublin-pre/dcmi-terms/#http://purl.org/dc/terms/relation): A file with this perspective on a CFA declares itself to be dependent upon a CFA pre that's associated with the identifier in the `value` half of the metadata pair. Thus, it is what CFA considers a co file.
-
-* [isPartOf](https://www.dublinpre.org/specifications/dublin-pre/dcmi-terms/#http://purl.org/dc/terms/isPartOf): A file with this perspective on a CFA declares itself to be part of a multi-file pre.
 
 To understand how metadata-based CFAs might be used, consider a case where the composer writes a piece of music for the violin. Later, she arranges a derivative version for the clarinet. The clarinet version is co &mdash; dependent upon the original violin composition &mdash; which is pre. In such a case, and assuming the composer chooses arbitrary identifier `68d15148-a0bd-4716-9618-061a17389689` for the CFA, she would embed metadata in her pre violin composition that says:
 
@@ -163,32 +230,3 @@ x | default                                               | Generic/ill-defined 
 TODO: put them after infix, if appear in both; put them on pre
 TODO: explain that cardinality isn't known by pre
 
-#### CFA Identifiers
-
-TODO The semantics associated with CFAs depend in part on how they are identified. In the case of sidecars, the identifier for the sidecar is simply the name of the pre file; it can carry no additional semantics, and its uniqueness depends on the content of its container. Infixes identify the CFA separately from the stem of their filename, but are also container-dependent.
-
-UUIDs are a convenient form of identifier, and they have the advantage of being globally unique. UUID form 4 carries the additional semantic that all UUIDs created by the same hardware will have something in common, which asserts something about common origin for many CFAs.
-
-URLs are another possible identifier type. These have the advantage that the CFA can be described at the URL in question. For example, the musician who wants to unify all works in their career corpus, and who uses the URL https://mymusicalcareer.com/corpus as the identifier for this CFA, can publish a catalog or similar informat about the corpus at that URL. However, URLs are notoriously unstable; using a PURL may be advisable.
-
-A [decentralized identifier (DID)](https://www.w3.org/TR/did-core/) adds the notion of cryptographically provable control to the CFA. With such identifiers, the owner of the identifier can prove they control the identifier, and by implication, the CFA. The composer who identifies her corpus with a CFA identified by a DID can thus set herself up as the indisputable authority on the question of whether any particular file deserves to be part of the CFA, *in her opinion as the CFA owner*. This does not mean the file's authorship can be proved &mdash; the CFA owner might have stolen it &mdash; but the identity of the CFA's controller becomes verifiable. Further, it becomes possible to carry out a secure communication with the author using a communications technique like DIDComm.
-
-An [autonomic identifier (AID)](https://arxiv.org/abs/1907.02143) is a form of decentralized identifier that further enhances security and decentralization. Most DID methods depend on the availability of a blockchain for resolution, and do not guard against the possibility that someone other than the creator of the DID registered it. In contrast, AIDs are self-certifying &mdash; meaning they guarantee a perfect chain of custody from inception &mdash; blockchain-independent &mdash; allowing their use with any or no blockchain at all &mdash; and use a sophisticated key pre-rotation technique to maximize key hygeine and provide post-quantum safety.
-
-A [self-addressing identifier (SAID)](https://www.youtube.com/watch?v=n7tBOPHdtdw) goes one step further still, by binding an identifier to the content of the file itself. This form of identifier can actually prove that a composer is the author of the work, not just the author of a CFA to which the work is bound. This is because the SAID is a hash of the rest of the content of the file &mdash; everything except the SAID itself.
-
-Unfortunately, SAIDs come with a challenge, which is that the content of the file cannot change at all without breaking the SAID. This is problematic when it's difficult to inject a SAID value after the file content is written (e.g., the file format is encrypted or undocumented, compression or binary transformations make the SAID hard to find, or injecting the SAID causes ripple effects that invalidate the hash). Unexpected breakage can also happen if software modifies in ways that are not obvious to a human intending view-only actions (e.g., automatically saving a last-printed date).
-
-To solve this problem, we introduce the concept of an __externalized SAID__. This consists of two pieces of data. One, the __SAID placeholder__, lives inside the file in the place that the SAID would normally occupy. The other, the __SAID value__, lives outside the file in its filename (or in the identifier that its container uses to refer to it).
-
-The SAID placeholder is a string in the form: `XSAID:x:y`, where x is an AID value and y is a filename fragment.
-
-When CFA-aware software encounters a file that declares a metadata or inline content CFA having a value that is a SAID placeholder, it knows that the filename MUST contain an actual SAID value, and it knows what that SAID value must be: *the hash of the file content, including the SAID placeholder*. It also knows that the filename MUST include the filename fragment `y`. If the file doesn't have such a name that matches this pattern, the filename is invalid.
-
-This mechanism solves the chicken-and-egg problem of software not allowing a SAID value to be injected, because the SAID value is externalized to the filename that can be changed independent of (and after) the content. Yet the content and the filename still have a verifiable binding. Anybody who either removes the SAID or the fragment from the filename, OR who changes the content of the file, without completing the other operation, leaves evidence of tampering. The filename derives from its content.
-
-If a SAID placeholder is used as the `value` portion of a CFA `name=value` pair, and if the entropy portion of the SAID placeholder is an AID, then the CFA has a verifiable owner &mdash; whoever controls the keys of the AID. It also has a verifiable filename for its pre file, making it difficult to manipulating the filename in a way that mischaracterizes it.
-
-The strength of this integrity protection depends on why it's hard to inject a standard SAID. If it's because the file is encrypted, or because changing a string will have ripple effects on the rest of the content that are intolerable to an attacker, the protection is strong. Otherwise, it is just a casual deterrent &mdash; not nearly as strong as a standard internal SAID.
-
-None of this guarantees that the author of a file protected in this way is in fact the original author of the content. Malfoy could use an externalized SAID on a file that contains content copied from some other author. The solution to this problem is not a hashing, signing, or CFA mechanism. Rather, if Alice wants absolute proof that she is the author, she must write the content to IPFS or a blockchain asa proof of existence at time X. Any party who produces substantially the same content but can only demonstrate a later timestamp has a derivative work. If this proof of existence is combined with an externalized SAID as a CFA identifier, then Alice can also prove the CFA was part of the file when it was created.
