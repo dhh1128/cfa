@@ -1,4 +1,4 @@
-Ideas:
+<!-- Ideas:
 
 * what relationships does this file have to other files (and to its container)
 * what kind of relationship is it?
@@ -9,7 +9,7 @@ Ideas:
 * some statements can be about container (first letter is 'c'...)
 * embed a filename regex in SAID placeholder
 * declare that a file must have a sidecar named .cfas?
-    s i {fname} 1c1
+    s i {fname} 1c1 -->
 
 # Cross-File Associations
 
