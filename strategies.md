@@ -26,7 +26,7 @@ A variation on sidecars is to associate files by giving their name a common __st
 
 Although shared stems resemble sidecars in some ways, their semantics are different. Shared stem CFAs are *common*; within the files that share a stem, there is no notion of dependency. This makes them an awkward fit for the spreadsheet-digital-signature-in-email example we used above. Naming the spreadsheet `balance-sheet.xlsx` and the signature `balance-sheet.sig` *does* connect them, but it does not convey the idea that the signature is meaningless without the spreadsheet.
 
-Like sidecars, shared stems are easy and intuitive, but their expressiveness is limited. They can be extended somewhat with [clarifiers](clarifiers.md).
+Like sidecars, shared stems are easy and intuitive, but their expressiveness is limited. They can be extended somewhat with [clarifiers](clarifying.md).
 
 ## Infix
 
@@ -40,7 +40,7 @@ Infixes are compared numerically, not textually; this means an infix of `01` and
 
 A file may bind more than one infix in its name: `tangled-bumpers--1--3.jpg` is a member of CFAs using both the `1` and `3` infixes, and might show both vehicles 1 and 3 in our example.
 
-Normally, infix CFAs are *common*. They can be extended somewhat with [clarifiers](clarifiers.md).
+Normally, infix CFAs are *common*. They can be extended somewhat with [clarifiers](clarifying.md).
 
 ## Metadata
 Many popular file formats support arbitrary metadata. HTML allows &lt;meta&gt; tags; markdown has [YAML frontmatter](https://docs.github.com/en/contributing/writing-for-github-docs/using-yaml-frontmatter); PDFs and most Adobe file formats support [XMP metadata](https://en.wikipedia.org/wiki/Extensible_Metadata_Platform); Microsoft Office formats support keyword tagging. Such files can bind CFAs internally, by declaring one or more special <var>name</var>, <var>value</var> metadata pairs in a form that we could describe with the symbolic notation `cfaid=explanation`. (The `cfaid` and `explanation` tokens in this notation are placeholders. The equals sign is not actually used in the syntax; it represents whatever mapping mechanism the metadata format uses to associate a name with a value.)
