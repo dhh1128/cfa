@@ -8,7 +8,7 @@ One simple strategy is to name files in a way that embodies the __sidecar__ nami
 
 Referencing the [spreadsheet-digital-signature-in-email example](README.md#example) that's mentioned in the introduction, if the spreadsheet attachment is named `balance-sheet.xlsx`, and the digital signature attachment is named `balance-sheet.xlsx.sig`, an email client can know that a sidecar CFA is active; the spreadsheet is the pre file, and the digital signature is co.
 
-![sidecar CFA](sidecar-cfa.png)
+![sidecar CFA](assets/sidecar-cfa.png)
 
 Sidecar CFAs are not always pairwise. We could add a third file in the same container and name it `balance-sheet.xlsx-audit-report.docx`; this would be an additional sidecar bound to the same CFA.
 
@@ -22,7 +22,7 @@ Sidecar naming is easy and intuitive. In fact, this strategy is already used by 
 
 A variation on sidecars is to associate files by giving their name a common __stem__, varying only at the end. The stem of a filename is the portion before the first `.` character. Digital cameras and related software often uses this strategy &mdash; saving `.raw` + `.tiff` or `.heic` + `.jpg` versions of each photo as associated pairs.
 
-![shared stem CFA](shared-stem-cfa.png)
+![shared stem CFA](assets/shared-stem-cfa.png)
 
 Although shared stems resemble sidecars in some ways, their semantics are different. Shared stem CFAs are *common*; within the files that share a stem, there is no notion of dependency. This makes them an awkward fit for the spreadsheet-digital-signature-in-email example we used above. Naming the spreadsheet `balance-sheet.xlsx` and the signature `balance-sheet.sig` *does* connect them, but it does not convey the idea that the signature is meaningless without the spreadsheet.
 
@@ -34,7 +34,7 @@ Another simple and external CFA convention is the __infix__ pattern. In this pat
 
 Suppose a police photographer is documenting an accident that involved several vehicles, and each will be photographed from multiple angles and lighting conditions. They might associate photos of vehicle 1 using a common infix: `front-bumper--01.jpg` and `drivers-door--01.jpg`, respectively.
 
-![infix CFA](infix-cfa.png)
+![infix CFA](assets/infix-cfa.png)
 
 Infixes are compared numerically, not textually; this means an infix of `01` and an infix of `1` are equivalent.
 
@@ -63,7 +63,7 @@ This says that the UUID on the left is the identifier for the CFA *and* for her 
 
 This says that the UUID on the left is the identifier for a CFA to which the clarinet file is related, directionally, as a co file.
 
-![directed metadata CFA](directed-metadata-cfa.png)
+![directed metadata CFA](assets/directed-metadata-cfa.png)
 
 Now suppose that Alice writes a symphony that has 4 movements. Each movement is a separate digital file emitted by her composition software. She wants them to be associated with the arbitrary identifier `972d639a-04d7-4c1e-9ea9-196e94b05eb0` to bind her symphony together, so she embeds metadata in each movement's digital file. The metadata says:
 
@@ -71,7 +71,7 @@ Now suppose that Alice writes a symphony that has 4 movements. Each movement is 
 
 The metadata in this situation also expresses a directional CFA, but all the files we've talked about so far are pre. However, the possibility of co is still useful. If three recordings of this symphony are performed, the composer can mark the recordings as co, dependent on the multi-part pre: 
 
-![multi-part pre metadata CFA](multi-pre-metadata-cfa.png)
+![multi-part pre metadata CFA](assets/multi-pre-metadata-cfa.png)
 
 For metadata schemes that require a URL to define the CFA namespace, the URL to use is: https://purl.archive.org/purl/cfa.
 
@@ -81,11 +81,9 @@ The final CFA strategy that we'll cover here is to embed a __CFA statement__ dir
 
 For example, if I wanted to bind a Google Slides presentation to a CFA, I could add a CFA statement to the speaker notes on the first slide, and find it again with a simple search:
 
-![CFA as inline content in Google Slides](slides-inline-content.png)
+![CFA as inline content in Google Slides](assets/slides-inline-content.png)
 
 In some cases, CFA statements might create visual clutter that's undesirable. They could be placed in a document header or footer, and hidden by customizing the text color.
 
 An important use for this strategy is to apply it to a [container](concepts.md#building-blocks) (folder, zip file, email), so that the container itself can bind CFAs and possibly function as a pre file. Since the content of a container is files, adding "inline" content to the container means adding a file to it. By convention, inline CFA content in containers must be in a file named `.cfas`. This file must be plain text and must consist of one or more CFA statements, one per line. Any lines that don't match the CFA statement syntax are treated as comments.
-
-[&lt; concepts](concepts.md) | [statements &gt;](statements.md)
 

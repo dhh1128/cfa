@@ -21,8 +21,4 @@ CFAs aren't for expressing every nuance of relationships; rather, they make it e
 
 Consider an email that includes as attachments a slide deck, photos, a spreadsheet, and a digital signature. A CFA can make it obvious that the digital signature is bound to the spreadsheet. Noticing the CFA, email clients can encourage uploading or downloading the two associated files as a unit, and warn if they become separated.
 
-![CFA example](cfa-example.png)
-
-<hr>
-
-Continue the tutorial at: [concepts &gt;](concepts.md)
+![CFA example](assets/cfa-example.png)

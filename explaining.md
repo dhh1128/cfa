@@ -1,7 +1,9 @@
 # Explaining CFAs
 In [metadata](strategies.md#metadata) and [inline content](strategies.md#inline-content) strategies, CFAs can carry rich descriptions that explain how files relate to one another, how many files of which kinds are in pre and co sets, and so forth.
 
-Descriptions of CFAs are built from three ingredients: __natures__, __clarifiers__, and __specifiers__.
+A __CFA explanation__ is a comma-separated string with no extra spaces, consisting of 1 to 3 tokens, in this form:
+
+    nature[,clarifier[,specifier]]
 
 ## nature
 A __nature__ characterizes the relationship between the bound file and the CFA, from the perspective of the bound file. 3 values are possible. They come from the [Dublin Core metadata standard](https://www.dublinpre.org/specifications/dublin-pre/dcmi-terms/):

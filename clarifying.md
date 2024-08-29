@@ -1,13 +1,13 @@
-# Clarifiers
+# Clarifying
 
-__Clarifiers__ are optional annotations that can be added to a CFA. They let a content creator specify the *cardinality* of the [pre and co](concepts.md#pre-and-co) sets in the CFA, and also what kind of relationship exists between the two. Without a clarifier, a CFA might communicate: "This file is pre and may have co files". With a clarifier, it might communicate, "This file is pre and has exactly one co file that is a digital signature over the pre."
+__Clarifiers__ are optional, advanced annotations that can be added to a CFA. They let a content creator specify the *cardinality* of the [pre and co](concepts.md#pre-and-co) sets in the CFA, and also what kind of relationship exists between the two. Without a clarifier, a CFA might communicate: "This file is pre and may have co files". With a clarifier, it might communicate, "This file is pre and has exactly one co file that is a digital signature over the pre."
 
 ## Format
 A clarifier is a three-part string. The first and third parts are cardinality numbers that quantify how many pre and co files, respectively, are known to be part of the set. For a CFA binding a spreadsheet to a digital signature, both of these numbers would be 1 &mdash; it's a 1-to-1 relationship. For a CFA binding the 4 movements of a symphony, the first number would be 4, since all 4 movements are pre. If cardinality is not known, the number is omitted. A cardinality of 0 means that no files in the set have the corresponding status; 0 is the correct value for the pre portion of a clarifier for a [common CFA](concepts.md#pre-and-co), since it is known to have no pre files. One of the two cardinality values (either the pre or the co digits, but not both) may be omitted, leaving half of the cardinality unspecified. 
 
 The middle part of a clarifier is a __dependency predicate symbol__. Its role is somewhat like [the role of the `rel` attribute on an HTML `<link>` tag](https://www.w3schools.com/TAGS/att_a_rel.asp).
 
-![clarifier structure](clarifier-structure.png)
+![clarifier structure](assets/clarifier-structure.png)
 
 The following dependency predicate symbols are defined:
 
@@ -31,4 +31,3 @@ strategy | sample clarifier value | where to clarify | unclarified filenames | c
 [sidecar](strategies.md#sidecar) | 1v1<br>(1 pre verified by 1 co) | hyphenated suffix on stem of some or all co and pre files | balance-sheet.xls, balance-sheet.xls.sig | balance-sheet-1v1.xls, balance-sheet-1v1.xls.sig
 [shared stem](strategies.md#shared-stem) | x2<br>(2 co files) | hyphenated suffix on stem of some or all co files | IMG001-1025.heic, IMG001-1025.jpg | IMG001-1025-x2.heic, IMG001-1025-x2.jpg 
 [infix](strategies.md#infix) | a2<br>(two views of the same thing) | unhyphenated suffix on infix | front-bumper--01.jpg, drivers-door--01.jpg | front-bumper--01a2.jpg, drivers-door--01a2.jpg 
-
