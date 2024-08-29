@@ -16,7 +16,7 @@ In sidecar names, the boundary between the pre name and the unique sidecar suffi
 
 Sidecar CFAs are *directional* and *external*. Like all external strategies, they are also container-dependent; the relationship implied by the naming convention cannot be evaluated except within the context of a shared container.
 
-Sidecar naming is easy and intuitive. In fact, this strategy is already used by many individuals and software packages; they are making CFAs even if they don't describe it in these terms. However, sidecars are not as powerful as some other strategies. They can be extended somewhat with [clarifiers](clarifiers.md).
+Sidecar naming is easy and intuitive. In fact, this strategy is already used by many individuals and software packages; they are making CFAs even if they don't describe it in these terms. However, sidecars are not as powerful as some other strategies. They can be extended somewhat with [clarifiers](clarifying.md).
 
 ## Shared stem
 
