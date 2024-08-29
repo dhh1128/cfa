@@ -15,4 +15,4 @@ nature | meaning
 `isPartOf` | This file is part of a multi-file pre, and the set as a whole is identified by the CFA. This matches the semantics of [`isPartOf`](http://purl.org/dc/terms/isPartOf) in Dublin Core.
 
 ## clarifier
-Clarifiers are explained [here](clarifying).
+Clarifiers are explained [here](clarifying.md).
