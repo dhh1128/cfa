@@ -28,7 +28,7 @@ Sometimes, co files are created by different authors than the pre file they depe
 
 ## External vs. internal strategies
 
-There are various ways to declare a CFA. We call them __strategies__. Different strategies have different pros and cons.
+There are various ways to declare a CFA. We call them __strategies__. [Different strategies](strategies.md) have different pros and cons.
 
 When the strategy that binds a file to a CFA requires changes to the content of the file, we say that the strategy is __internal__, or that the file is __internally bound__ to that CFA. When the binding convention manifests outside the content of the file, we say that the strategy is __external__, or that the file is __externally bound__. External and internal strategies are not mutually exclusive; a given file may use both to bind CFAs.
 

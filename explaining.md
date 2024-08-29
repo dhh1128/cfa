@@ -11,7 +11,7 @@ A __nature__ characterizes the relationship between the bound file and the CFA, 
 nature | meaning
 --- | ---
 `identifier` | There is a 1-to-1 relationship between this file and the CFA, and the identifier can be used to look up either one. The file is thus the one and only pre file in the CFA. This matches the semantics of the [`identifier`](http://purl.org/dc/terms/identifier) keyword in Dublin Core.
-`relation` | This file relates to something else to make its meaning clear. The file is thus co, either to a pre or to a common CFA. This matches the semantics of the [relation](http://purl.org/dc/terms/relation) keyword in Dublin Core.
+`relation` | This file relates to something else to make its meaning clear. The file is thus co, either to a pre or to a common CFA. This matches the semantics of the [`relation`](http://purl.org/dc/terms/relation) keyword in Dublin Core.
 `isPartOf` | This file is part of a multi-file pre, and the set as a whole is identified by the CFA. This matches the semantics of [`isPartOf`](http://purl.org/dc/terms/isPartOf) in Dublin Core.
 
 ## clarifier
