@@ -2,6 +2,11 @@
 
 The theory behind CFAs is described in [an academic paper](https://docs.google.com/document/d/1rjjPIhRTlfH4kQYt0t8LBuamAXn63VQHUpUqvdMSGUY/edit). There's also a [Dev Guide](dev-guide.md). We'll skip most of the details in this tutorial, but we still need to define a few terms.
 
+## Example
+Consider an email that includes as attachments a slide deck, photos, a spreadsheet, and a digital signature. A CFA can make it obvious that the digital signature is bound to the spreadsheet. Noticing the CFA, email clients can encourage uploading or downloading the two associated files as a unit, and warn if they become separated.
+
+![CFA example](assets/cfa-example.png)
+
 ## Building blocks
 In the context of CFAs, a __file__ is anything that has a name/identifier and content &mdash; the familiar artifact in a file system, but also a web page, a tweet, a piece of data, etc. A __container__ is anything that holds files: a folder, an email, a database, an S3 bucket, and so forth. These two object categories are not mutually exclusive; files can be containers (e.g., zip files), and containers can be thought of as files (e.g., emails saved as .eml).
 

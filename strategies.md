@@ -6,7 +6,7 @@ Several strategies for declaring a CFA are standardized.
 
 One simple strategy is to name files in a way that embodies the __sidecar__ naming pattern. In this strategy, there is one pre file in the CFA, and it has any arbitrary name. Any co files are called "sidecars" because their names are dependent on the pre: a sidecar name equals the name of the pre file followed by a unique, descriptive suffix.
 
-Referencing the [spreadsheet-digital-signature-in-email example](README.md#example) that's mentioned in the introduction, if the spreadsheet attachment is named `balance-sheet.xlsx`, and the digital signature attachment is named `balance-sheet.xlsx.sig`, an email client can know that a sidecar CFA is active; the spreadsheet is the pre file, and the digital signature is co.
+Referencing the [spreadsheet-digital-signature-in-email example](concepts.md#example) that's mentioned in the conceptual overview, if the spreadsheet attachment is named `balance-sheet.xlsx`, and the digital signature attachment is named `balance-sheet.xlsx.sig`, an email client can know that a sidecar CFA is active; the spreadsheet is the pre file, and the digital signature is co.
 
 ![sidecar CFA](assets/sidecar-cfa.png)
 
