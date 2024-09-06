@@ -13,10 +13,10 @@ The following dependency predicate symbols are defined:
 
 symbol | meaning | sample use cases
 --- | ---| ---
-a | co files are <u>a</u>ternative views or versions of one another | X-rays of the same broken bone produce a lateral and a top view (co files).
+a | co files are <u>a</u>lternative views or versions of one another | X-rays of the same broken bone produce a lateral and a top view (co files).
 c | pre <u>c</u>ited by co | An academic paper (pre) and a subsequent paper that quotes from it (co). An affidavit (pre) and a legal filing that references it (co).
 d | pre used to <u>d</u>erive co | A violin concerto (pre) that spawns an arrangement for clarinet (co). A novel (pre) and its audiobook version (co). A repo of source code (pre) and its forks (co).
-f | pre <<u>f</u>ollowed by (answered by, replied to by) co | A tweet (pre) and a reply (co). A critique (pre) and a rebuttal (co). An email (pre) and a response (co).
+f | pre <u>f</u>ollowed by (answered by, replied to by) co | A tweet (pre) and a reply (co). A critique (pre) and a rebuttal (co). An email (pre) and a response (co).
 r | co <u>r</u>eviews pre                               | A financial statement (pre) and an auditor's report (co). An album (pre) and a review by a music critic (co).
 s | co <u>s</u>upersedes pre                            | Version 1 of a formal standard (pre) and version 2 (co).
 t | co <u>t</u>ransforms pre (typically in a lossy way) | A news article (pre) and translations (co). A vector graphic (pre) and a bitmap graphic (co). An audio stream (pre) and a transcription (co). A FLAC audio recording (pre) and its .mp3 compression (co). In general, transformations that are not lossy (e.g., a file in zipped and unzipped form, the same text encoded in UTF-16 and UTF-8) do not have an obvious pre-to-co directionality and are thus thought of as multi-pre (not needing clarification).
