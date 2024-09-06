@@ -12,7 +12,7 @@ In the context of CFAs, a __file__ is anything that has a name/identifier and co
 
 When a file participates in a cross-file association, we say that the file __binds__ the CFA. A given file may bind zero or more CFAs.
 
-## pre and co
+## *pre* and co
 
 Some CFAs impute special status to a subset of its bound files that *come before* the others. We call these __directed__ CFAs. The precedence of these files may or may not mean they are more valuable &mdash; importance and utility are contextual &mdash; but such files are almost always created *first*, and they provide a *logical foundation* toward which the group is oriented and upon which the meaning of the overall group depends. Such files are called __pre files__.
 
@@ -24,7 +24,7 @@ A given file may have *pre* status in one CFA, and *co* status in another.
 
 ![directed vs. common CFAs](assets/directed-vs-common-cfas.png)
 
-Sometimes, co files are created by different authors than the pre file they depend on. A student who writes an essay explicating a poem is creating a co file that depends on the poem as a pre file. This could happen long after the poet is dead, and without the poet's active cooperation. Thus, co files may know more about pre files than vice versa.
+Sometimes, *co* files are created by different authors than the *pre* file they depend on. A student who writes an essay explicating a poem is creating a *co* file that depends on the poem as a *pre* file. This could happen long after the poet is dead, and without the poet's active cooperation. Thus, *co* files may know more about *pre* files than vice versa.
 
 ## External vs. internal strategies
 

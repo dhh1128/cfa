@@ -4,15 +4,15 @@ Several strategies for declaring a CFA are standardized.
 
 ## Sidecar
 
-One simple strategy is to name files in a way that embodies the __sidecar__ naming pattern. In this strategy, there is one pre file in the CFA, and it has any arbitrary name. Any co files are called "sidecars" because their names are dependent on the pre: a sidecar name equals the name of the pre file followed by a unique, descriptive suffix.
+One simple strategy is to name files in a way that embodies the __sidecar__ naming pattern. In this strategy, there is one *pre* file in the CFA, and it has any arbitrary name. Any *co* files are called "sidecars" because their names are dependent on the pre: a sidecar name equals the name of the *pre* file followed by a unique, descriptive suffix.
 
-Referencing the [spreadsheet-digital-signature-in-email example](concepts.md#example) that's mentioned in the conceptual overview, if the spreadsheet attachment is named `balance-sheet.xlsx`, and the digital signature attachment is named `balance-sheet.xlsx.sig`, an email client can know that a sidecar CFA is active; the spreadsheet is the pre file, and the digital signature is co.
+Referencing the [spreadsheet-digital-signature-in-email example](concepts.md#example) that's mentioned in the conceptual overview, if the spreadsheet attachment is named `balance-sheet.xlsx`, and the digital signature attachment is named `balance-sheet.xlsx.sig`, an email client can know that a sidecar CFA is active; the spreadsheet is the *pre* file, and the digital signature is co.
 
 ![sidecar CFA](assets/sidecar-cfa.png)
 
 Sidecar CFAs are not always pairwise. We could add a third file in the same container and name it `balance-sheet.xlsx-audit-report.docx`; this would be an additional sidecar bound to the same CFA.
 
-In sidecar names, the boundary between the pre name and the unique sidecar suffix must be delimited by one or more non-word characters such as a space, `.`, `-`, or `_`.
+In sidecar names, the boundary between the *pre* name and the unique sidecar suffix must be delimited by one or more non-word characters such as a space, `.`, `-`, or `_`.
 
 Sidecar CFAs are *directional* and *external*. Like all external strategies, they are also container-dependent; the relationship implied by the naming convention cannot be evaluated except within the context of a shared container.
 
@@ -61,17 +61,17 @@ Suppose that Alice, a composer of classical music, wants to mark all her composi
     
 That UUID, `0bb...`, will bind all her creative output together, even if it's built with a variety of tools, for many clients, across decades, and stored in a hodge-podge of storage containers. 
 
-### Pre and co
+### *pre* and co
 
-Building on this example, suppose that Alice writes a piece of music for the violin. Later, she arranges a derivative version for the clarinet. Since these two pieces of music are part of her overall corpus, they have a cross-file association to her corpus and should bind the CFA shown above. In addition, these two pieces of music have a more specific relation to one another. The clarinet version is co &mdash; dependent upon the original violin composition &mdash; which is pre. In such a case, and assuming the composer chooses arbitrary identifier `68d15148-a0bd-4716-9618-061a17389689` for the CFA between this pair of files, she might embed more metadata in her pre violin composition that says:
+Building on this example, suppose that Alice writes a piece of music for the violin. Later, she arranges a derivative version for the clarinet. Since these two pieces of music are part of her overall corpus, they have a cross-file association to her corpus and should bind the CFA shown above. In addition, these two pieces of music have a more specific relation to one another. The clarinet version is *co* &mdash; dependent upon the original violin composition &mdash; which is pre. In such a case, and assuming the composer chooses arbitrary identifier `68d15148-a0bd-4716-9618-061a17389689` for the CFA between this pair of files, she might embed more metadata in her *pre* violin composition that says:
 
     CFA2=identifier,,68d15148-a0bd-4716-9618-061a17389689
 
-This says her violin file binds another CFA (apparently, the 2nd one for the file) identified by the UUID at the end of the expression. The nature of the relationship between the violin file and the CFA is "identifier" &mdash; meaning that the set as a whole is *identified with* its one and only pre file. In other words, the violin file serves as a nucleus for a larger set directed at the violin file. She could then embed metadata in her co clarinet arrangement that says:
+This says her violin file binds another CFA (apparently, the 2nd one for the file) identified by the UUID at the end of the expression. The nature of the relationship between the violin file and the CFA is "identifier" &mdash; meaning that the set as a whole is *identified with* its one and only *pre* file. In other words, the violin file serves as a nucleus for a larger set directed at the violin file. She could then embed metadata in her *co* clarinet arrangement that says:
 
     CFA7=relation,1d,68d15148-a0bd-4716-9618-061a17389689 
 
-This says that her clarinet file binds a CFA (apprently, the 7th one for the file) identified by the UUID at the end of the expression. The nature of the relationship between the clarinet file and the CFA is "relation" &mdash; meaning that the clarinet just relates as a co file. Since the CFA in both of these metadata pairs is the same, the binding is to the same set. The clarinet co file is thus directed to the violin pre file. The `1d` token is an optional [clarifier](clarifying.md) that says the co derives from pre, and that there is only 1 pre file in the CFA.
+This says that her clarinet file binds a CFA (apprently, the 7th one for the file) identified by the UUID at the end of the expression. The nature of the relationship between the clarinet file and the CFA is "relation" &mdash; meaning that the clarinet just relates as a *co* file. Since the CFA in both of these metadata pairs is the same, the binding is to the same set. The clarinet *co* file is thus directed to the violin *pre* file. The `1d` token is an optional [clarifier](clarifying.md) that says the *co* derives from pre, and that there is only 1 *pre* file in the CFA.
 
 ![directed metadata CFA](assets/directed-metadata-cfa.png)
 
@@ -83,17 +83,17 @@ Now suppose that Alice writes a symphony that has 4 movements, and each movement
 
 This binds the file for each movement to a directional CFA, where the nature of the relationship between the file and the CFA is "isPartOf". In other words, each movement is part of an aggregate pre. We know it is not co, because the nature was not declared to be "relation". We also know that there are 4 parts, due to the `4x` [clarifier](clarifying.md).
 
-### Multipart pre with co
+### Multipart *pre* with co
 
-The possibility of co is still useful with this symphony CFA. If three recordings of this symphony are performed, the composer can mark each recordings as co, dependent on the multi-part pre: 
+The possibility of *co* is still useful with this symphony CFA. If three recordings of this symphony are performed, the composer can mark each recordings as co, dependent on the multi-part pre: 
 
-![multi-part pre metadata CFA](assets/multi-pre-metadata-cfa.png)
+![multi-part *pre* metadata CFA](assets/multi-pre-metadata-cfa.png)
 
 This might be done with metadata like this:
 
     CFA1=relation,4t,972d639a-04d7-4c1e-9ea9-196e94b05eb0
 
-Here, the `4t` clarifier tells us that the 4-part pre has been transformed by the current file, without making any claims about how many other transformations might exist. For more about this advanced notation, see [Clarifying CFAs](clarifying.md).
+Here, the `4t` clarifier tells us that the 4-part *pre* has been transformed by the current file, without making any claims about how many other transformations might exist. For more about this advanced notation, see [Clarifying CFAs](clarifying.md).
 
 ## Inline content
 
@@ -107,5 +107,5 @@ In some cases, CFA statements might create visual clutter that's undesirable. Th
 
 ### Inline content in containers
 
-An important use for this strategy is to apply it to a [container](concepts.md#building-blocks) (folder, zip file, email), so that the container itself can bind CFAs and possibly function as a pre file. Since the content of a container is files, adding "inline" content to the container means adding a file to it. By convention, inline CFA content in containers must be in a file named `.cfas`. This file must be plain text and must consist of one or more CFA statements, one per line. Any lines that don't match the CFA statement syntax are treated as comments.
+An important use for this strategy is to apply it to a [container](concepts.md#building-blocks) (folder, zip file, email), so that the container itself can bind CFAs and possibly function as a *pre* file. Since the content of a container is files, adding "inline" content to the container means adding a file to it. By convention, inline CFA content in containers must be in a file named `.cfas`. This file must be plain text and must consist of one or more CFA statements, one per line. Any lines that don't match the CFA statement syntax are treated as comments.
 

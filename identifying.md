@@ -36,7 +36,7 @@ SAIDs are normally calculated by inserting a placeholder in a file, calculating 
 
     CFA1=identifier,1v1,".*-{SAID}\.pdf"
 
-This would mean, "This file binds a SAID as its one and only pre file, and it is accompanied by a co file that verifies it (e.g., a digital signature). The SAID that identifies the CFA is the last token in the filename."
+This would mean, "This file binds a SAID as its one and only *pre* file, and it is accompanied by a *co* file that verifies it (e.g., a digital signature). The SAID that identifies the CFA is the last token in the filename."
 
 The quoted XSAID expression uses python raw string (`r"..."`) syntax, and it must match the entire filename. However, the literal character sequence `{SAID}` is matched to a valid SAID sequence instead of being interpreted by regex rules.
 
