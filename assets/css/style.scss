@@ -40,11 +40,14 @@ footer {
     color: #666666;
     font-style: italic;
 }
-a { color: #914f37 }
+a { 
+    color: #914f37;
+    border-bottom: solid 1px #e0b69c;
+}
 a:hover {
     font-weight: inherit;
     color: #491705;
-    border-bottom: solid 1px #e0b69cff;
+    border-bottom: double #765043;
 }
 a:visited { color: #765043 }
 
