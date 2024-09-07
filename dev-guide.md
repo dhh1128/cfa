@@ -2,7 +2,7 @@
 
 Implementing support for CFAs requires you to answer the following questions:
 
-1. Do you intend to create CFAs, or to recognize / enforce / react to CFAs, or both?
+1. Do you intend to *create* CFAs, or to *react to* CFAs, or both?
 2. Which [strategies](strategies.md) will you support?
 3. Which file and container types will you support?
 
@@ -14,8 +14,8 @@ Creating external CFAs in a specific context (e.g., binding email attachments to
 
 ```pseudocode
 def sidecar(pre, extension):
-    return *pre* + extension
-def common(co, extension):
+    return pre + extension
+def shared_stem(co, extension):
     return basename(co) + extension
 def infix(stem, extension):
     return stem + '--' + next_infix() 
@@ -39,7 +39,7 @@ If you're already writing rich file content, such that adding metadata or inline
 
 Recognizing and reacting to external CFAs is also easy. When you manipulate a file, check for files in the same container that are associated with the one you're operating on. If you see associations that use the sidecar, common stem, or suffix strategies, help the user maintain the set intelligently. You'll probably need to write a few functions, but nothing ambitious.
 
-The most powerful CFAs use CFA statements. These can be parsed efficiently with regular expressions, but because they live inside file content, you must scan files to find them, and that means you may need support for various file formats. A library should help you with this.
+The most powerful CFAs use [metadata](strategies.md#metadata) or [inline content](strategies.md#inline-content) strategies. These strategies can be parsed efficiently with regular expressions, but because they live inside file content, you must scan files to find them, and that means you may need support for various file formats. A library should help you with this.
 
 ## Statement Syntax
 A slightly simplified ABNF for a CFA statement is:
