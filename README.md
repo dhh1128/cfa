@@ -1,4 +1,4 @@
-# Cross-File Associations
+# CFA
 
 Cross-File Associations (CFAs) are a way to declare relationships among files and file-like objects. They help software and humans to be smarter about grouping things together.
 
