@@ -14,5 +14,5 @@ jobs:
       - name: Run lychee link checker
         uses: lycheeverse/lychee-action@v1.10.0
         with:
-          args: --verbose --exclude '(doi|genderit)\.org' *.md
+          args: --verbose --exclude '(doi|genderit)\.org' './**/*.md' './**/*.html'
           fail: true
