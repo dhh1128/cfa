@@ -42,8 +42,8 @@ This would mean, "This file binds a SAID as its one and only *pre* file, and it 
 
 The quoted XSAID expression uses python raw string (`r"..."`) syntax, and it must match the entire filename. However, the literal character sequence `E###########################################` is matched to a valid SAID sequence instead of being interpreted by regex rules.
 
-SAIDs are case-sensitive.
-
+When SAIDs are used to identify CFAs, any delimiting prefix such as `SAID:` or `XSAID` is ignored; only the SAID value itself is the CFA's identifier. SAIDs are case-sensitive.
+S
 ## Namespaced SAIDs
 An AID (or a DID) can be combined with a SAID to get the benefits of both: cryptographic control plus tamper-evident content addressing. Whoever controls the AID or DID is the controller of the namespace, and the SAID references content under their control. In such cases, the identexpr component of the explanation begins with a cryptographic identifier that constitutes the namespace, and is followed by a dot, then a SAID or externalized SAID. For example:
 
