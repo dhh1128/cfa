@@ -1,4 +1,15 @@
-# Cross-File Associations (CFAs)
+---
+title: "Cross-File Associations (CFAs): A Lightweight, Decentralized Model for Expressing File Relationships"
+author: "Daniel Hardman"
+date: "December 2025"
+papersize: letter
+fontsize: 11pt
+geometry: margin=1in
+mainfont: TeX Gyre Termes
+monofont: Inconsolata
+---
+
+# Cross-File Associations (CFAs): A Lightweight, Decentralized Model for Expressing File Relationships
 
 Daniel Hardman  
 daniel.hardman@gmail.com  
