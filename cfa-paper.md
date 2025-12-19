@@ -64,7 +64,7 @@ A CFA is a relationship, not a container. Conceptually, CFAs form edges in a gra
 
 Binding a CFA is a statement that a relationship is asserted to exist, independent of whether that assertion is accepted, validated, or contested. It is not a claim about ownership, authorship, correctness, or legitimacy. CFAs intentionally avoid embedding such judgments.
 
-CFAs are lightweight by design. They aim to capture common, durable relationships rather than exhaustively model provenance, workflow, or semantic meaning. This boundary is intentional and distinguishes CFAs from provenance systems that seek comprehensive causal and temporal representation [6,7]. More expressive systems may be layered on top of CFAs, but CFAs are not a substitute for them.
+CFAs are lightweight by design. They aim to capture common, durable relationships rather than exhaustively model provenance, workflow, or semantic meaning. This boundary is intentional and distinguishes CFAs from provenance systems that seek comprehensive causal and temporal representation [6,7]. More expressive systems may be layered on top of CFAs, but CFAs are not a substitute for them. Unlike tags, CFAs distinguish symmetric grouping from asymmetric dependence, preventing common errors such as treating derivatives, signatures, or reviews as interchangeable members of an undifferentiated set.
 
 ### 3.3 Directed and common associations
 
@@ -186,7 +186,7 @@ CFAs occupy a conceptual space between several familiar mechanisms for organizin
 
 **Version control systems** model relationships among files over time, particularly derivation and succession. CFAs do not attempt to encode temporal history or branching structure. Instead, they allow files produced inside or outside version control systems to declare durable relationships that persist even when detached from their original repositories.
 
-**Provenance and knowledge graph models** aim for expressive, often exhaustive representations of causality, authorship, and process [6,7]. CFAs are deliberately not a substitute for such systems. They provide a lightweight substrate on which richer models may be layered, but they avoid requiring comprehensive schemas, ontologies, or centralized registries.
+**Provenance and knowledge graph models** aim for expressive, often exhaustive representations of causality, authorship, and process [6,7]. CFAs are deliberately not a substitute for such systems. They provide a lightweight substrate on which richer models may be layered, but they avoid requiring comprehensive schemas, ontologies, or centralized registries. CFAs are not intended to compete with provenance systems, but with the informal naming conventions and ad hoc metadata that practitioners already rely on in their absence.
 
 Across these comparisons, CFAs can be understood as a *design pattern* rather than a competing system: a minimal way to state that files are related in recurring, interpretable ways.
 
@@ -194,7 +194,7 @@ Across these comparisons, CFAs can be understood as a *design pattern* rather th
 
 Because CFAs are decentralized, they permit unilateral assertions. Any party may claim that a file participates in a given association. This raises obvious concerns about false, misleading, or conflicting declarations.
 
-CFAs do not attempt to resolve such disputes. They make no claims about correctness, ownership, or legitimacy. Instead, they expose assertions so that tools and users can evaluate them in context.
+CFAs do not attempt to resolve such disputes. They make no claims about correctness, ownership, or legitimacy. Instead, they expose assertions so that tools and users can evaluate them in context. The design deliberately favors visibility of contested assertions over implicit silence, on the assumption that inspectable disagreement is preferable to unexamined inference.
 
 Different identifier choices can mitigate some of these risks. For example, identifiers that support cryptographic control allow a party to demonstrate stewardship over a namespace, while content-addressed identifiers can make tampering evident. However, these mechanisms remain optional. CFAs separate the *expression* of relationships from their *validation*.
 
@@ -231,7 +231,7 @@ Finally, CFAs invite exploration of how lightweight relational metadata interact
 
 As digital artifacts proliferate across tools, platforms, and organizations, the limitations of containment-based organization become increasingly apparent. CFAs offer a lightweight, decentralized way to make relationships explicit without imposing heavy infrastructure or rigid schemas.
 
-By treating relationships as first-class and supporting gradual adoption, CFAs enable both humans and software to reason more effectively about collections of related files.
+The primary contribution of CFAs is a minimal, composable vocabulary that makes existing file relationships explicit and interoperable without requiring shared infrastructure, schemas, or authority. By treating relationships as first-class and supporting gradual adoption, CFAs enable both humans and software to reason more effectively about collections of related files.
 
 ---
 
