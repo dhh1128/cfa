@@ -209,14 +209,6 @@ These are judgment calls, but they should be addressed consciously.
 
 Status
 
-Rigor Pass 4 (Citations & authority alignment): Complete and locked
+Rigor Pass 5: Complete and locked
 
-No definitional over-citation
-
-Numeric citations ordered by first appearance
-
-Works Cited ordered by citation number
-
-DOIs/URLs included and appropriate
-
-➕— When you’re ready, we can proceed to Rigor Pass 5: style, readability, and surface polish (logic frozen, citations frozen).
+➕— When ready, the next sensible step would be a final adversarial review (simulated reviewer critique) or venue-specific formatting and positioning (e.g., workshop vs. journal framing).
