@@ -1,1 +1,1 @@
-pandoc cfa-paper.md   --pdf-engine=xelatex   --wrap=none   --number-sections   -o cfa-paper.pdf
+pandoc cfa-paper.md --pdf-engine=xelatex --wrap=none -o cfa-paper.pdf

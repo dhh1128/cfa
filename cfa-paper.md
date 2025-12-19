@@ -1,19 +1,14 @@
 ---
 title: "Cross-File Associations (CFAs): A Lightweight, Decentralized Model for Expressing File Relationships"
 author: "Daniel Hardman"
-date: "December 2025"
+thanks: "daniel.hardman@gmail.com"
+date: December 2025
 papersize: letter
 fontsize: 11pt
 geometry: margin=1in
 mainfont: TeX Gyre Termes
 monofont: Inconsolata
 ---
-
-# Cross-File Associations (CFAs): A Lightweight, Decentralized Model for Expressing File Relationships
-
-Daniel Hardman  
-daniel.hardman@gmail.com  
-December 2025
 
 ## Abstract
 
@@ -22,8 +17,6 @@ Folders, archive files, source code repositories, and similar containers are the
 This paper introduces *Cross-File Associations* (CFAs), a lightweight mechanism for declaring relationships among files and file-like objects. Like tags, CFAs allow logical groupings that do not depend on physical containment or central authority. Unlike tags, CFAs make relationships explicit and structured in ways that software can interpret reliably. CFAs are simple enough for informal use, yet expressive enough to support automation and reasoning. The paper develops the conceptual foundations of CFAs, illustrates their use through concrete examples, and situates them among existing organizational techniques.
 
 **Keywords:** file systems, metadata, information organization, decentralized identifiers, cryptographic identifiers, digital signatures
-
----
 
 ## 1. Introduction
 
@@ -36,8 +29,6 @@ Containment is intuitive and widely supported, but it is brittle. A file can bel
 Tagging systems address some of these limitations. A photo can be tagged with multiple labels. A document can be annotated with keywords. Tags are flexible and decentralized, but they are also ambiguous. A tag such as “draft” or “vacation” can mean different things to different people, or even to the same person at different times. Tag vocabularies can be standardized, but doing so reintroduces centralization and governance overhead. Prior empirical and theoretical work on folksonomies has documented these tradeoffs in flexibility, precision, and governance [3–5].
 
 This paper explores an alternative: a way to express relationships among files that is decentralized like tagging, yet more precise and formally interpretable. The mechanism is called a *Cross-File Association* (CFA).
-
----
 
 ## 2. Basic concepts
 
@@ -54,8 +45,6 @@ Some CFAs distinguish between files that provide a logical foundation for the re
 Other CFAs treat all bound files as peers; these are called *common CFAs*. A file may be a *pre file* in one CFA and a *co file* in another.
 
 CFAs may be declared in ways that modify file content or in ways that rely entirely on external conventions. These approaches are introduced later in the paper.
-
----
 
 ## 3. Conceptual foundations of cross-file associations
 
@@ -109,8 +98,6 @@ CFAs are not a provenance system, an access control mechanism, or a semantic ont
 
 The remainder of the paper moves from these abstract commitments to concrete mechanisms and examples.
 
----
-
 ## 4. Simple examples
 
 The examples in this section are illustrative rather than exhaustive. They demonstrate how CFAs make relationships legible to humans and software, rather than enumerating all possible uses or strategies.
@@ -128,8 +115,6 @@ Amadeus sends a client several email attachments: two audio files, an invoice, a
 Using a simple naming convention, he binds the invoice and its signature into a directed CFA. Software that recognizes the convention can infer the relationship and warn when one file is missing. Humans can often infer the same meaning at a glance.
 
 This example illustrates how even minimal external conventions can express relationships more clearly than containment alone.
-
----
 
 ## 5. Declaring CFAs in practice
 
@@ -180,8 +165,6 @@ CFAs are designed to function as hints rather than mandates. A tool may recogniz
 This partial adoption is a requirement for real-world uptake, not a failure mode. When CFAs are recognized, they enable software to make better-informed choices. When they are not recognized, files remain ordinary files. No correctness or access guarantees are assumed or enforced.
 
 This property allows CFAs to be layered gradually onto existing ecosystems, improving behavior opportunistically without breaking established workflows.
-
----
 
 ## 6. Discussion and future work
 
@@ -236,15 +219,11 @@ Formalization efforts might specify grammars, comparison rules, or canonical enc
 
 Finally, CFAs invite exploration of how lightweight relational metadata interacts with cryptographic content addressing and decentralized identity systems, particularly in long-lived, multi-party ecosystems.
 
----
-
 ## 7. Conclusion
 
 As digital artifacts proliferate across tools, platforms, and organizations, the limitations of containment-based organization become increasingly apparent. CFAs offer a lightweight, decentralized way to make relationships explicit without imposing heavy infrastructure or rigid schemas.
 
 The primary contribution of CFAs is a minimal, composable vocabulary that makes existing file relationships explicit and interoperable without requiring shared infrastructure, schemas, or authority. By treating relationships as first-class and supporting gradual adoption, CFAs enable both humans and software to reason more effectively about collections of related files.
-
----
 
 ## References
 
