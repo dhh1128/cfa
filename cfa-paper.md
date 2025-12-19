@@ -6,7 +6,7 @@ December 2025
 
 ## Abstract
 
-Folders, archive files, source code repositories, and similar containers are today’s dominant mechanism for grouping digital artifacts. Containers offer clarity and durability, but they also impose rigid structure and create fragility when data moves across systems or administrative boundaries. Tagging systems provide a more flexible and decentralized alternative, but at the cost of precision and formal interpretability.
+Folders, archive files, source code repositories, and similar containers are today’s dominant mechanism for grouping digital artifacts [1,2]. Containers offer clarity and durability, but they also impose rigid structure and create fragility when data moves across systems or administrative boundaries. Tagging systems provide a more flexible and decentralized alternative, but at the cost of precision and formal interpretability; extensive research documents the semantic ambiguity and weak governance that arise in collaborative tagging and folksonomies [3–5].
 
 This paper introduces *Cross-File Associations* (CFAs), a lightweight mechanism for declaring relationships among files and file-like objects. Like tags, CFAs allow logical groupings that do not depend on physical containment or central authority. Unlike tags, CFAs make relationships explicit and structured in ways that software can interpret reliably. CFAs are designed to be simple enough for informal use, yet expressive enough to support automation and reasoning. The paper develops the conceptual foundations of CFAs, illustrates their use through concrete examples, and situates them among existing organizational techniques.
 
@@ -22,7 +22,7 @@ Like most of us, Amadeus relies on containment to organize his work. Projects li
 
 Containment is intuitive and widely supported, but it is brittle. A file can belong to only one folder at a time unless it is duplicated or linked indirectly. Changing the meaning of a hierarchy requires reorganizing it. When files cross administrative or technical boundaries, containment-based meaning often disappears.
 
-Tagging systems address some of these problems. A photo can be tagged with multiple labels. A document can be annotated with keywords. Tags are flexible and decentralized, but they are also ambiguous. A tag such as “draft” or “vacation” can mean different things to different people, or even to the same person at different times. Tag vocabularies can be standardized, but doing so reintroduces centralization and governance overhead.
+Tagging systems address some of these problems. A photo can be tagged with multiple labels. A document can be annotated with keywords. Tags are flexible and decentralized, but they are also ambiguous. A tag such as “draft” or “vacation” can mean different things to different people, or even to the same person at different times. Tag vocabularies can be standardized, but doing so reintroduces centralization and governance overhead. Empirical and theoretical work on folksonomies has documented these tradeoffs in flexibility, precision, and governance [3–5].
 
 This paper explores an alternative: a way to express relationships among files that is decentralized like tagging, but more precise and formally interpretable. The mechanism is called a *Cross-File Association*.
 
@@ -30,17 +30,17 @@ This paper explores an alternative: a way to express relationships among files t
 
 ## 2. Basic concepts
 
-In this paper, a *file* is any digital artifact with identifiable content and a stable reference. This includes traditional files in a file system, but also database records, email messages, web resources, cryptographic objects, and other digital items. Some files are static; others change over time.
+In this paper, a *file* is any digital artifact with identifiable content and a reference that is sufficiently stable to support comparison and association over time. This includes traditional files in a file system, but also database records, email messages, web resources, cryptographic objects, and other digital items. Some files are static; others change over time.
 
 A *container* is any construct that groups files together: a directory, an archive, an email with attachments, a database table, or a cloud storage bucket. Files and containers are not mutually exclusive categories.
 
-A *cross-file association* (CFA) is a declared relationship among two or more files. When a file participates in such a relationship, we say that it *binds* the CFA. A file may bind zero, one, or many CFAs.
+A *cross-file association* (CFA) is a declared relationship among two or more files. When a file participates in such a relationship, we say that it *binds* the CFA; binding is a declarative act and does not imply correctness, endorsement, or authority. A file may bind zero, one, or many CFAs.
 
-Each CFA is identified by a *CFA identifier* (CFAID). Files that bind the same identifier are understood to participate in the same association. CFA identifiers need only be unique within the context in which they are interpreted; they need not be human-readable.
+Each CFA is identified by a *CFA identifier*. Files that bind the same identifier are understood to participate in the same association. CFA identifiers need only be unique within the context in which they are interpreted; they need not be human-readable.
 
-Some CFAs distinguish between files that provide a logical foundation for the relationship and files that depend on that foundation. These are called *directed CFAs*. Files with foundational status are called *pre files*. Dependent files are called *co files*. Other CFAs treat all bound files as peers; these are called *common CFAs*.
+Some CFAs distinguish between files that provide a logical foundation for the relationship and files whose interpretation depends on that foundation. These are called *directed CFAs*. Files that provide the logical foundation for a directed CFA are called *pre files*. Files whose interpretation depends on a *pre file* within a directed CFA are called *co files*.
 
-A file may be a pre file in one CFA and a co file in another.
+Other CFAs treat all bound files as peers; these are called *common CFAs*. A file may be a *pre file* in one CFA and a *co file* in another.
 
 CFAs may be declared in ways that modify file content or in ways that rely entirely on external conventions. These approaches are introduced later in the paper.
 
@@ -60,21 +60,21 @@ This location-independence is a design objective rather than a claim of superior
 
 ### 3.2 Associations as first-class relationships
 
-A CFA is a relationship, not a container. Conceptually, CFAs form edges in a graph whose nodes are files. Treating relationships as *first-class* in this sense means that they can be explicitly represented, inspected, and reasoned about, rather than inferred indirectly from structure.
+A CFA is a relationship, not a container. Conceptually, CFAs form edges in a graph whose nodes are files. Treating relationships as *first-class* in this sense means that they are explicitly representable and inspectable, rather than being inferred indirectly from structure.
 
-Binding a CFA is a statement that a relationship is asserted to exist. It is not a claim about ownership, authorship, correctness, or legitimacy. CFAs intentionally avoid embedding such judgments.
+Binding a CFA is a statement that a relationship is asserted to exist, independent of whether that assertion is accepted, validated, or contested. It is not a claim about ownership, authorship, correctness, or legitimacy. CFAs intentionally avoid embedding such judgments.
 
-CFAs are lightweight by design. They aim to capture common, durable relationships rather than exhaustively modeling provenance, workflow, or semantic meaning. More expressive systems may be layered on top of CFAs, but CFAs are not a substitute for them.
+CFAs are lightweight by design. They aim to capture common, durable relationships rather than exhaustively modeling provenance, workflow, or semantic meaning. This boundary is intentional and distinguishes CFAs from provenance systems that seek comprehensive causal and temporal representation [6,7]. More expressive systems may be layered on top of CFAs, but CFAs are not a substitute for them.
 
 ### 3.3 Directed and common associations
 
 Many familiar file relationships are asymmetric. A document may be signed, translated, reviewed, or transformed into another format. In these cases, the derived artifact depends on the original for its interpretation.
 
-Directed CFAs make this dependence explicit by distinguishing *pre* files from *co* files. The direction reflects semantic dependence, not importance, authority, or value.
+Directed CFAs make this dependence explicit by distinguishing *pre files* from *co files*. The direction reflects semantic dependence, not importance, authority, or value.
 
 Other relationships are naturally symmetric. Multiple photographs of the same scene or alternative encodings of the same recording may form a logical set without a single foundational element. These relationships are modeled as common CFAs.
 
-A file may serve as a *pre* file in one CFA and as a *co* file in another.
+A file may serve as a *pre file* in one CFA and as a *co file* in another.
 
 ### 3.4 Declaring associations without central authority
 
@@ -82,13 +82,13 @@ Any party may assert that a file participates in a CFA. This allows relationship
 
 The ability to assert relationships unilaterally is important in practice. Files are often annotated, commented on, reviewed, or transformed by parties other than their original authors, sometimes long after initial creation. CFAs support these post hoc and third-party relationships without requiring permission or shared infrastructure.
 
-CFAs distinguish between *assertion* and *authority*. Some CFA identifiers merely name a relationship. Others are constructed in ways that allow a party to demonstrate control over the identifier’s namespace. This distinction supports both informal annotation and stronger governance models without requiring a single global authority.
+CFAs distinguish between *assertion*—the act of declaring a relationship—and *authority*, which arises only from external social or technical mechanisms. This distinction is well established in trust management and identity systems, where assertions must be evaluated independently of the authority that validates or relies on them [8,9]. Some CFA identifiers merely name a relationship. Others are constructed in ways that allow a party to demonstrate control over an identifier’s namespace. This distinction supports both informal annotation and stronger governance models without requiring a single global authority.
 
 ### 3.5 Internal and external binding strategies
 
-CFAs may be declared using conventions embedded within file content or through external conventions such as naming patterns. These strategies differ in how the relationship is expressed, not in what the relationship means.
+CFAs may be declared using conventions embedded within file content or through external conventions such as naming patterns. These strategies differ only in how the relationship is expressed; they do not alter the semantics of the relationship itself.
 
-Internal strategies tend to be more robust across containers because the declaration travels with the file. External strategies are simpler and often already used informally, but their meaning is typically container-dependent.
+Internal strategies tend to be more robust across containers because the declaration travels with the file. Work in digital preservation and metadata standards has long emphasized the portability advantages of embedded, standardized metadata over container-local conventions [10,11]. External strategies are simpler and often already used informally, but their meaning is typically container-dependent.
 
 CFAs treat these approaches as complementary. A relationship may be declared using different strategies in different contexts, or redundantly, to increase resilience.
 
@@ -122,7 +122,9 @@ This example illustrates how even minimal external conventions can express relat
 
 ## 5. Declaring CFAs in practice
 
-Cross-File Associations are expressed through *declaration strategies*: conventions by which a file signals that it participates in a particular association. A strategy determines how a relationship is made legible to humans and software; it does not define the semantics of the relationship itself.
+Cross-File Associations are expressed through *declaration strategies*: conventions by which a file signals that it participates in a particular association. In this paper, *strategy* refers exclusively to a convention for expressing a CFA, not to a workflow, policy, or governance mechanism.
+
+A strategy determines how a relationship is made legible to humans and software; it does not define the semantics of the relationship itself.
 
 CFA design intentionally supports multiple strategies instead of prescribing a single canonical mechanism. This plurality reflects a core design commitment: relationships among files already exist in practice, expressed through ad hoc conventions, naming patterns, and metadata. CFAs aim to recognize and formalize these practices incrementally, not to replace them wholesale.
 
@@ -132,7 +134,7 @@ At a high level, CFA strategies can be understood along two illustrative axes.
 
 The first distinguishes **external** strategies from **internal** ones. External strategies rely on conventions outside file content—typically filenames or container-local context. Internal strategies embed declarations within the content or metadata of a file itself.
 
-The second concerns **deployability versus expressiveness**. Simple strategies are easy to adopt and often require no new tools, but they carry limited semantic precision. More expressive strategies enable stronger interpretation and automation, but require formats that support structured metadata or inline annotations.
+The second concerns **deployability versus expressiveness**. Simple strategies are easy to adopt and often require no new tools, but they carry limited semantic precision. More expressive strategies enable stronger interpretation and automation, but require formats that support structured metadata or inline annotations. Tradeoffs of this kind are a recurring theme in software architecture and systems design [12].
 
 These axes are not exhaustive. They serve as a heuristic for understanding design tradeoffs rather than as a complete taxonomy.
 
@@ -184,7 +186,7 @@ CFAs occupy a conceptual space between several familiar mechanisms for organizin
 
 **Version control systems** model relationships among files over time, particularly derivation and succession. CFAs do not attempt to encode temporal history or branching structure. Instead, they allow files produced inside or outside version control systems to declare durable relationships that persist even when detached from their original repositories.
 
-**Provenance and knowledge graph models** aim for expressive, often exhaustive representations of causality, authorship, and process. CFAs are deliberately not a substitute for such systems. They provide a lightweight substrate on which richer models may be layered, but they avoid requiring comprehensive schemas, ontologies, or centralized registries.
+**Provenance and knowledge graph models** aim for expressive, often exhaustive representations of causality, authorship, and process [6,7]. CFAs are deliberately not a substitute for such systems. They provide a lightweight substrate on which richer models may be layered, but they avoid requiring comprehensive schemas, ontologies, or centralized registries.
 
 Across these comparisons, CFAs can be understood as a *design pattern* rather than a competing system: a minimal way to state that files are related in recurring, interpretable ways.
 
@@ -197,8 +199,6 @@ CFAs do not attempt to resolve such disputes. They make no claims about correctn
 Different identifier choices can mitigate some risks. For example, identifiers that support cryptographic control allow a party to demonstrate stewardship over a namespace, while content-addressed identifiers can make tampering evident. However, these mechanisms remain optional. CFAs separate the *expression* of relationships from their *validation*.
 
 Conflicts among CFAs—such as competing claims about derivation or succession—are expected. In many domains, disagreement is inherent. CFAs provide a vocabulary for surfacing these disagreements without imposing a resolution model.
-
-CFAs intentionally separate the expression of relationships from their validation. When CFA identifiers are chosen from cryptographic schemes—such as content-addressed or controller-bound identifiers—additional properties such as tamper evidence or controller attribution may emerge. These properties arise from the identifier scheme, not from CFAs as such.
 
 ### 6.3 Failure modes and limits
 
@@ -233,3 +233,30 @@ As digital artifacts proliferate across tools, platforms, and organizations, the
 
 By treating relationships as first-class and by supporting gradual adoption, CFAs enable both humans and software to reason more effectively about collections of related files.
 
+---
+
+## References
+
+[1] Dinneen, J. D., and Julien, C.-A. *The ubiquitous digital file: A review of file management research.* Journal of the Association for Information Science and Technology, 72, 6 (2021), 711–728. https://doi.org/10.1002/asi.24464
+
+[2] Bergman, O., Beyth-Marom, R., and Nachmias, R. *Folder versus tag preference in personal information management.* Journal of the Association for Information Science and Technology, 64, 9 (2013), 1855–1870. https://doi.org/10.1002/asi.22875
+
+[3] Trant, J. *Studying social tagging and folksonomy: A review and framework.* Journal of Digital Information, 10, 1 (2009).
+
+[4] Spiteri, L. F. *The structure and form of folksonomy tags: The road to the public library catalog.* Information Technology and Libraries, 26, 3 (2007), 13–25. https://doi.org/10.6017/ital.v26i3.3279
+
+[5] Golder, S. A., and Huberman, B. A. *The structure of collaborative tagging systems.* Journal of Information Science, 32, 2 (2006), 198–208. https://doi.org/10.1177/0165551506062337
+
+[6] W3C. *PROV-Overview: An overview of the PROV family of documents.* W3C Recommendation, 2013. https://www.w3.org/TR/prov-overview/
+
+[7] W3C. *PROV-DM: The PROV data model.* W3C Recommendation, 2013. https://www.w3.org/TR/prov-dm/
+
+[8] Blaze, M., Feigenbaum, J., and Lacy, J. *Decentralized trust management.* In *Proceedings of the IEEE Symposium on Security and Privacy* (1996), 164–173. https://doi.org/10.1109/SP.1996.10012
+
+[9] Grassi, P. A., Garcia, M. E., and Fenton, J. L. *Digital Identity Guidelines: Federation and Assertions.* NIST Special Publication 800-63C-4, 2025. https://doi.org/10.6028/NIST.SP.800-63c-4
+
+[10] Caplan, P. *Understanding PREMIS.* Library of Congress, 2017. https://www.loc.gov/standards/premis/understanding-premis.pdf
+
+[11] Dappert, A., and Farquhar, A. *Using METS, PREMIS and MODS for archiving e-journals.* D-Lib Magazine, 14, 9/10 (2008). https://doi.org/10.1045/september2008-dappert
+
+[12] Bass, L., Clements, P., and Kazman, R. *Software Architecture in Practice*, 3rd ed. Addison-Wesley, 2013.

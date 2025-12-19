@@ -207,58 +207,16 @@ These are judgment calls, but they should be addressed consciously.
 
 ## 9. Recommended immediate next step
 
-I have implemented Rigor Pass 2 (Argument integrity) directly in the manuscript for Sections 3–5, adhering strictly to the constraints you approved:
+Status
 
-Logic-only edits
+Rigor Pass 4 (Citations & authority alignment): Complete and locked
 
-No stylistic polish
+No definitional over-citation
 
-No new concepts
+Numeric citations ordered by first appearance
 
-No terminology drift
+Works Cited ordered by citation number
 
-No citations added
+DOIs/URLs included and appropriate
 
-The updated sections are now visible in the canvas as:
-
-“CFA Paper — Sections 3–5 (Rigor Pass 2 Applied)”
-
-What was changed (concise audit)
-
-Made implicit premises explicit
-
-Explained why location-independence matters (3.1).
-
-Explained why unilateral assertion is a feature, not a flaw (3.4).
-
-Disambiguated potentially overloaded terms
-
-Clarified “first-class” as representational, not normative (3.2).
-
-Reasserted that strategies express relationships; they do not define semantics (3.5 / 5.0).
-
-Softened claims that could be misread as empirical
-
-Qualified asymmetric-relationship claims with examples (3.3).
-
-Reframed decentralization language as design suitability, not measurement (5.3).
-
-Pre-empted reviewer taxonomy attacks
-
-Labeled the two-axis strategy framing as illustrative, not exhaustive (5.1).
-
-Reinforced authority separation
-
-Explicitly located authority in identifier schemes, not CFAs themselves (5.4).
-
-No claims were removed. No scope was expanded.
-
-Status after this step
-
-Argument integrity is now locked for Sections 3–5.
-
-The paper is safe to enter Terminology & definitional rigor (Pass 3).
-
-Subsequent passes will not need to revisit logic except to correct errors.
-
-➕— Next recommended step: Proceed to Rigor Pass 3 — Terminology & definitional rigor, auditing all defined terms across Sections 1–5 for uniqueness, stability, and boundary discipline.
+➕— When you’re ready, we can proceed to Rigor Pass 5: style, readability, and surface polish (logic frozen, citations frozen).
