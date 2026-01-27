@@ -20,4 +20,4 @@ nature | meaning
 Clarifiers are explained [here](clarifying.md). Clarifiers can be omitted, causing the first and the third commas in an explanation to appear with no intervening content.
 
 ## identexpr
-The <var>identexpr</var> component of an explanation tells how this cross-file association can be distinguished from others. Normally, this is done by providing a literal identifier &mdash;a name, a UUID, a DID, a SAID, etc. In the the case of externalized SAIDs, the expression is more complex. See [Identifying a CFA](identifying.md).
+The <var>identexpr</var> component of an explanation tells how this cross-file association can be distinguished from others. Normally, this is done by providing a literal identifier &mdash;a name, a UUID, a DID, a SAID, etc. In the the case of [externalized SAIDs](https://dhh1128.github.io/papers/bes.html), the expression is more complex. See [Identifying a CFA](identifying.md).

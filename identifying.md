@@ -34,7 +34,7 @@ AID values are case-sensitive.
 ## SAIDs
 A [self-addressing identifier (SAID)](https://www.youtube.com/watch?v=n7tBOPHdtdw) binds an identifier to the content of the file itself. This makes the combination of identifier and content tamper-evident, because cannot be changed without also changing the identifier. A SAID thus constitutes a proof of existence for its content, and a digital signature can assert authorship over that content.
 
-SAIDs are normally calculated by inserting a placeholder in a file, calculating a hash, and then replacing the placeholder with the SAID. This works well when file content is oriented toward serialized data structures (e.g., JSON, CBOR, MsgPack). However, it is not possible with many common file types that compress and encrypt, such as .docx, .pdf, and .zip. [Externalized SAIDs](https://dhh1128.github.io/papers/bes.pdf) address this challenge. An externalized SAID requires an internal declaration of a SAID regex, with the SAID value itself appearing in the filename. It is thus has both internal and external characteristics. For example, suppose that the XMP metadata of a PDF contained this metadata pair:
+SAIDs are normally calculated by inserting a placeholder in a file, calculating a hash, and then replacing the placeholder with the SAID. This works well when file content is oriented toward serialized data structures (e.g., JSON, CBOR, MsgPack). However, it is not possible with many common file types that compress and encrypt, such as .docx, .pdf, and .zip. [Externalized SAIDs](https://dhh1128.github.io/papers/bes.html) address this challenge. An externalized SAID requires an internal declaration of a SAID regex, with the SAID value itself appearing in the filename. It is thus has both internal and external characteristics. For example, suppose that the XMP metadata of a PDF contained this metadata pair:
 
     CFA1=identifier,1v1,XSAID:".*-E###########################################\.pdf"
 
@@ -50,4 +50,4 @@ An AID (or a DID) can be combined with a SAID to get the benefits of both: crypt
     CFA1=identifier,1v1,EcGraT4XWiPBnyV7IcSklDxXOF-xfoyOz0WURwoHW14y.".*-E###########################################\.pdf"
 
 ## Other identifier types
-The foregoing list is not exhaustive. It is entirely possible to use other well-known identifier types as well: DOI numbers, LEIs, ISBNs, Bitcoin addresses, etc. The common constraint is that these identifier types 
+The foregoing list is not exhaustive. It is entirely possible to use other well-known identifier types as well: DOI numbers, LEIs, ISBNs, Bitcoin addresses, etc.
