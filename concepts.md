@@ -1,6 +1,6 @@
 # Concepts
 
-The theory behind CFAs is described in [an academic paper](https://docs.google.com/document/d/1rjjPIhRTlfH4kQYt0t8LBuamAXn63VQHUpUqvdMSGUY/edit). There's also a [Dev Guide](dev-guide.md). We'll skip most of the details in this tutorial, but we still need to define a few terms.
+The theory behind CFAs is described in [an academic paper](https://dhh1128.github.io/papers/cfa-paper.html). There's also a [Dev Guide](dev-guide.md). We'll skip most of the details in this tutorial, but we still need to define a few terms.
 
 ## Example
 Consider an email that includes as attachments a slide deck, photos, a spreadsheet, and a digital signature. A CFA can make it obvious that the digital signature is bound to the spreadsheet. Noticing the CFA, email clients can encourage uploading or downloading the two associated files as a unit, and warn if they become separated.
