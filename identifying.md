@@ -27,7 +27,7 @@ A [decentralized identifier (DID)](https://www.w3.org/TR/did-core/) adds the not
 Although the [DID spec](https://www.w3.org/TR/did-core/#method-syntax) allows DID methods to define their own case-sensitivity rules, CFA implementations MAY assume that all DIDs are case-sensitive.
 
 ## AIDs
-An [autonomic identifier (AID)](https://trustoverip.github.io/tswg-keri-specification/#autonomic-identifier-aid) is a form of decentralized identifier that further enhances security and decentralization. Most DID methods depend on the availability of a blockchain for resolution, and do not guard against the possibility that someone other than the creator of the DID registered it. In contrast, AIDs are self-certifying &mdash; meaning they guarantee a perfect chain of custody from inception; blockchain-independent &mdash; allowing their use with any or no blockchain at all; and use a sophisticated key pre-rotation technique to maximize key hygeine and provide post-quantum safety.
+An [autonomic identifier (AID)](https://trustoverip.github.io/kswg-keri-specification/#autonomic-identifier-aid) is a form of decentralized identifier that further enhances security and decentralization. Most DID methods depend on the availability of a blockchain for resolution, and do not guard against the possibility that someone other than the creator of the DID registered it. In contrast, AIDs are self-certifying &mdash; meaning they guarantee a perfect chain of custody from inception; blockchain-independent &mdash; allowing their use with any or no blockchain at all; and use a sophisticated key pre-rotation technique to maximize key hygeine and provide post-quantum safety.
 
 AID values are case-sensitive.
 
